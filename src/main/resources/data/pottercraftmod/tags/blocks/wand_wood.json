@@ -1,0 +1,9 @@
+{
+	"replace": false,
+	"values": [
+		"minecraft:acacia_log",
+		"minecraft:oak_log",
+		"pottercraftmod:black_walnut_log",
+		"pottercraftmod:holly_log"
+	]
+}
