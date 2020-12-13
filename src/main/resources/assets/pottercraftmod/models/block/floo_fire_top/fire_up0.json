@@ -1,0 +1,6 @@
+{
+    "parent": "pottercraftmod:block/floo_fire_top/fire_up",
+    "textures": {
+        "fire": "pottercraftmod:blocks/floo_fire_top0"
+    }
+}
