@@ -21,14 +21,19 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WandSpellParticle extends SpriteTexturedParticle {
-
 	private double posX, posY, posZ;
+	  private final IAnimatedSprite spriteIn;
+
 
 	protected WandSpellParticle(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn,
 			double ySpeedIn, double zSpeedIn, WandSpellParticleData data, IAnimatedSprite sprite) {
 
 		super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
 
+		this.spriteIn = sprite;
+		this.motionX *= (double)0.1F;
+	    this.motionY *= (double)0.1F;
+	    this.motionZ *= (double)0.1F;
 		this.motionX = xSpeedIn;
 		this.motionY = ySpeedIn;
 		this.motionZ = zSpeedIn;
@@ -37,37 +42,43 @@ public class WandSpellParticle extends SpriteTexturedParticle {
 		this.posY = yCoordIn;
 		this.posZ = zCoordIn;
 
-		this.particleScale = 0.1F * (this.rand.nextFloat() * 0.2F + 20.0F);
-		float f = (float) Math.random() * 0.4F + 0.6F;
-		this.particleRed = ((float) (Math.random() * (double) 0.2F) + 0.8F) * data.getRed() * f;
-		this.particleGreen = ((float) (Math.random() * (double) 0.2F) + 0.8F) * data.getGreen() * f;
-		this.particleBlue = ((float) (Math.random() * (double) 0.2F) + 0.8F) * data.getBlue() * f;
-		this.maxAge = (int) (Math.random() * 10.0d) + 40;
-		
-		this.particleGravity = 0.15f;
+		 float f = (float)(Math.random() * (double)0.3F);
+	     this.particleRed = f;
+	     this.particleGreen = f;
+	     this.particleBlue = f;
+	     this.particleScale *= 0.75F * 2.5f;
+	     this.maxAge = (int)(8.0D / (Math.random() * 0.8D + 0.2D));
+	     this.maxAge = (int)((float)this.maxAge * 2.5f);
+	     this.maxAge = Math.max(this.maxAge, 1);
+	     this.selectSpriteWithAge(sprite);
 
 	}
 
 	@Override
 	public void tick() {
-		this.prevPosX = this.posX;
-		this.prevPosY = this.posY;
-		this.prevPosZ = this.posZ;
-
-		if (this.age++ >= this.maxAge) {
-			this.setExpired();
-		} else {
-			 this.motionY += 0.004D;
+		 this.prevPosX = this.posX;
+	      this.prevPosY = this.posY;
+	      this.prevPosZ = this.posZ;
+	      if (this.age++ >= this.maxAge) {
+	         this.setExpired();
+	      } else {
+	         this.selectSpriteWithAge(this.spriteIn);
+	         this.motionY += 0.004D;
 	         this.move(this.motionX, this.motionY, this.motionZ);
-	         this.motionX *= (double)0.9F;
-	         this.motionY *= (double)0.9F;
-	         this.motionZ *= (double)0.9F;
+	         if (this.posY == this.prevPosY) {
+	            this.motionX *= 1.1D;
+	            this.motionZ *= 1.1D;
+	         }
+
+	         this.motionX *= (double)0.96F;
+	         this.motionY *= (double)0.96F;
+	         this.motionZ *= (double)0.96F;
 	         if (this.onGround) {
 	            this.motionX *= (double)0.7F;
 	            this.motionZ *= (double)0.7F;
 	         }
-	         this.motionY -= 0.004D + 0.04D * (double)this.particleGravity;
-		}
+
+	      }
 
 	}
 	
@@ -170,6 +181,5 @@ public class WandSpellParticle extends SpriteTexturedParticle {
 			return this.alpha;
 		}
 	}
-	
 
 }

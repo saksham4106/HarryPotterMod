@@ -1,0 +1,7 @@
+{
+    "parent": "pottercraftmod:block/floo_fire_base/fire_floor",
+    "textures": {
+        
+        "fire": "pottercraftmod:blocks/floo_fire_base1"
+    }
+}

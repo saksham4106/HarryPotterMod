@@ -2,6 +2,7 @@ package com.saksham.pottercraftmod.init;
 
 import com.saksham.pottercraftmod.PottercraftMod;
 import com.saksham.pottercraftmod.PottercraftMod.PottercraftItemGroup;
+import com.saksham.pottercraftmod.objects.items.FlooPowderItem;
 import com.saksham.pottercraftmod.objects.items.SpellItem;
 import com.saksham.pottercraftmod.objects.items.WandItem;
 
@@ -15,7 +16,7 @@ public class ItemInit {
 			PottercraftMod.MOD_ID);
 
 	public static final RegistryObject<Item> WAND = ITEMS.register("wand",
-			() -> new WandItem(new Item.Properties().group(PottercraftItemGroup.instance)));
+			() -> new WandItem(new Item.Properties().group(PottercraftItemGroup.instance).maxStackSize(1)));
 	
 	public static final RegistryObject<Item> SPELL_BALL = ITEMS.register("spell_ball",
 			() -> new SpellItem(new Item.Properties(), 2));
@@ -38,6 +39,11 @@ public class ItemInit {
 	
 	public static final RegistryObject<Item> HOLLY_LOG = ITEMS.register("holly_log",
 			() -> new Item(new Item.Properties().group(PottercraftItemGroup.instance)));
+	
+	
+	
+	public static final RegistryObject<Item> FLOO_POWDER = ITEMS.register("floo_powder", 
+			() -> new FlooPowderItem(new Item.Properties().group(PottercraftItemGroup.instance)));
 	
 	
 }

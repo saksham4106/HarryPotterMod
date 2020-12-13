@@ -44,7 +44,7 @@ public class ChangeSpellPacket {
 	            		currentSpellId++;
 	            	}
 
-	            	WandItem.setCurrentSpellId(currentSpellId, playerIn);
+	            	WandItem.setCurrentSpellId(currentSpellId);
 	            	
 	            }
 	        });
