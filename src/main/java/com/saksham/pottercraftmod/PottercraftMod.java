@@ -1,14 +1,16 @@
 package com.saksham.pottercraftmod;
 
 import org.apache.logging.log4j.LogManager;
+
 import org.apache.logging.log4j.Logger;
 
 import com.saksham.pottercraftmod.init.BlockInit;
 import com.saksham.pottercraftmod.init.ItemInit;
 import com.saksham.pottercraftmod.init.ModEntityTypes;
-import com.saksham.pottercraftmod.init.ParticleInit;
+import com.saksham.pottercraftmod.init.ModTileEntities;
 import com.saksham.pottercraftmod.network.Networking;
 import com.saksham.pottercraftmod.objects.blocks.FlooFireBlock;
+import com.saksham.pottercraftmod.objects.blocks.NameplateBlock;
 
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -44,12 +46,13 @@ public class PottercraftMod
 		modEventBus.addListener(this::doClientStuff);
 		
 		
-		ParticleInit.PARTICLE_TYPES.register(modEventBus);
+		
+		//ParticleInit.PARTICLE_TYPES.register(modEventBus);
 		ItemInit.ITEMS.register(modEventBus);
 		//RecipeSerializerInit.RECIPE_SERIALIZERS.register(modEventBus);
 		//FluidInit.FLUIDS.register(modEventBus);
 		BlockInit.BLOCKS.register(modEventBus);
-		//ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
+		ModTileEntities.TILE_ENTITY_TYPES.register(modEventBus);
 		//ModContainerTypes.CONTAINER_TYPES.register(modEventBus);
 		ModEntityTypes.ENTITY_TYPES.register(modEventBus);
 		//BiomeInit.BIOMES.register(modEventBus);
@@ -66,7 +69,7 @@ public class PottercraftMod
 		final IForgeRegistry<Item> registry = event.getRegistry();
 
 		BlockInit.BLOCKS.getEntries().stream()
-				.filter(block -> !(block.get() instanceof FlooFireBlock))
+				.filter(block -> !(block.get() instanceof FlooFireBlock) && !(block.get() instanceof NameplateBlock))
 				.map(RegistryObject::get).forEach(block -> {
 					final Item.Properties properties = new Item.Properties().group(PottercraftItemGroup.instance);
 					final BlockItem blockItem = new BlockItem(block, properties);
@@ -75,6 +78,7 @@ public class PottercraftMod
 				});
 
 		LOGGER.debug("Registered BlockItems!");
+		
 	}
 
 

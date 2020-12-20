@@ -1,7 +1,6 @@
 package com.saksham.pottercraftmod.objects.items;
 
 import com.saksham.pottercraftmod.PottercraftMod;
-import com.saksham.pottercraftmod.init.BlockInit;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,99 +21,95 @@ public class FlooPowderItem extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		BlockPos pos = playerIn.getPosition();
 
-		if(checkXbyX(worldIn, pos.down().north(2).west(2)) &&
-			checkXbyX(worldIn, pos.up(3).north(2).west(2)) &&
-			checkFor3Wall(worldIn, pos) == 3
-
-			) {
-			System.out.println("pog");
-			
-		}else {
-			worldIn.setBlockState(pos, BlockInit.FLOO_FIRE_BLOCK.get().getDefaultState());
+		if(checkXbyZ(pos.down().north(2).west(2), worldIn)) {
+			if(checkXbyZ(pos.up(3).north(2).west(2), worldIn)) {
+				if(test(pos, worldIn)) {
+					PottercraftMod.LOGGER.info("POG");
+				}					
+			}
 		}
-		
+//		if(checkXbyY(pos.down().north(2).west(2), worldIn, false)) {
+//			if(checkXbyY(pos.down().east(2).north(2), worldIn, true)) {
+//				if(checkXbyY(pos.down().west(2).south(2), worldIn, false)) {
+//					if(checkXbyY(pos.down().south(2).west(2), worldIn, false)) {
+//		
 		
 		playerIn.getHeldItemMainhand().shrink(1);
 		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
 	
-	private int checkFor3Wall(World worldIn, BlockPos pos) {
+	private boolean test(BlockPos pos, World worldIn) {
 		int count = 0;
-		if(checkZbyY(worldIn, pos.down().north(2).west(2))) {
-			count++;
-		}
-		if(checkZbyY(worldIn, pos.down().north(2).east(2))) {
-			count++;
-		}
-		if(checkXbyY(worldIn, pos.down().south(2).west(2))) {
-			count++;
-		}
-		if(checkXbyY(worldIn, pos.down().north(2).west(2))) {
-			count++;
-			System.out.println("yeet");
-		}
-		
-//		if(checkXbyY(worldIn, pos)) {
+//
+//		if(checkXbyY(pos.down().north(2).west(2), worldIn, false, false)) {
+//			System.out.println(" -> " + 1);
 //			count++;
-//		}w
-		
-		
-		System.out.println(count);
-		return count;
-	}
-
-	
-	private boolean checkZbyY(World worldIn, BlockPos pos) {
-		boolean flag = true;
-		for(int i = 0; i < 5; i++) {
-			for(int j = 0; j < 5; j++) {
-				//PottercraftMod.LOGGER.info("this is the player pos -> " + pos + "it is checking this -> " + pos.add(0, i, j) + "value of j -> " + j);
-				worldIn.setBlockState(pos.add(0, i, j), Blocks.WHITE_CONCRETE.getDefaultState());
-				if(worldIn.getBlockState(pos.add(0, i, j)) == BlockInit.MINISTRY_OF_MAGIC_BRICK.get().getDefaultState()) {
-					flag = true;
-				}else {
-					flag = false;
-					break;
-				}
-			}
+//		}
+//		if(checkXbyY(pos.down().west(2).north(2), worldIn, true, false)) {
+//			System.out.println(" -> " + 2);
+//			count++;
+//		}
+		if(checkXbyY(pos.down().west(2).south(2), worldIn, false, true)) {
+			System.out.println(" -> " + 3);
+			count++;
 		}
-		return flag;
-	}
-	
-	private boolean checkXbyY(World worldIn, BlockPos pos) {
-		boolean flag = true;
-		for(int i = 0; i < 5; i++) {
-			for(int j = 0; j < 5; j++) {
-				worldIn.setBlockState(pos.add(0, i, j), Blocks.WHITE_CONCRETE.getDefaultState());
-				PottercraftMod.LOGGER.info("this is the player pos -> " + pos + "it is checking this -> " + pos.add(j, i, 0) + "value of j -> " + j);
-				if(worldIn.getBlockState(pos.add(j, i, 0)) == BlockInit.MINISTRY_OF_MAGIC_BRICK.get().getDefaultState()) {
-					flag = true;
-				}else {
-					flag = false;
-					break;
-				}
-			}
+		if(checkXbyY(pos.down().south(2).west(2), worldIn, true, false)) {
+			System.out.println(" -> " + 4);
+			count++;
 		}
-		return flag;
+		System.out.println("this is count -> "+ count);
+		if(count==3) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	
-	private boolean checkXbyX(World worldIn, BlockPos pos ) {
-		
-		boolean flag = true;
+	
+	private boolean checkXbyZ(BlockPos pos, World worldIn) {
+		int count = 0;
 		for(int i = 0; i < 5; i++) {
 			for(int j = 0; j < 5; j++) {
-				worldIn.setBlockState(pos.add(0, i, j), Blocks.WHITE_CONCRETE.getDefaultState());
-				//PottercraftMod.LOGGER.info("a) this is the player pos -> " + pos + "it is checking this -> " + pos.add(i, 0, j) + "value of j -> " + j);
-				if(worldIn.getBlockState(pos.add(i, 0, j)) == BlockInit.MINISTRY_OF_MAGIC_BRICK.get().getDefaultState()) {
-					flag = true;
-				}else {
-					flag = false;
-					break;
+				if(worldIn.getBlockState(pos.add(i, 0, j)) == Blocks.WHITE_CONCRETE.getDefaultState()) {
+					count++;
 				}
 			}
 		}
-		return flag;
+		if(count==25) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
+	private boolean checkXbyY(BlockPos pos, World worldIn, boolean xOrZ, boolean y) {
+		int count = 0;
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j < 5; j++) {
+				if(y)
+				worldIn.setBlockState(pos.add(i, j, 0), Blocks.WHITE_CONCRETE.getDefaultState());
+				
+				if(!xOrZ) {
+					if(worldIn.getBlockState(pos.add(i, j, 0)) ==  Blocks.WHITE_CONCRETE.getDefaultState()) {
+						count++;
+						
+					}
+				}else {
+					if(worldIn.getBlockState(pos.add(0, j, i)) == Blocks.WHITE_CONCRETE.getDefaultState()) {
+						count++;
+					}
+				}
+				
+			}
+		}
+		
+		if(count==25) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }

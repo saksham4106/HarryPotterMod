@@ -3,6 +3,7 @@ package com.saksham.pottercraftmod.init;
 import com.saksham.pottercraftmod.PottercraftMod;
 import com.saksham.pottercraftmod.objects.blocks.FlooFireBaseBlock;
 import com.saksham.pottercraftmod.objects.blocks.FlooFireBlock;
+import com.saksham.pottercraftmod.objects.blocks.NameplateBlock;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -25,6 +26,9 @@ public class BlockInit {
 	
 	public static final RegistryObject<Block> FLOO_FIRE_BLOCK = BLOCKS.register("floo_fire_block", 
 			() -> new FlooFireBaseBlock(Block.Properties.create(Material.FIRE).tickRandomly()));
+	
+	public static final RegistryObject<Block> GOLD_NAMEPLATE = BLOCKS.register("gold_nameplate", 
+			() -> new NameplateBlock(Block.Properties.create(Material.IRON)));
 	
 	
 	

@@ -2,6 +2,7 @@ package com.saksham.pottercraftmod.util;
 
 import com.saksham.pottercraftmod.PottercraftMod;
 import com.saksham.pottercraftmod.client.entity.render.SpellEntityRender;
+import com.saksham.pottercraftmod.client.ter.NameplateTileEntityRenderer;
 import com.saksham.pottercraftmod.client.text.SpellRenderFont;
 import com.saksham.pottercraftmod.init.BlockInit;
 import com.saksham.pottercraftmod.init.KeyBindInit;
@@ -27,6 +28,7 @@ public class ClientEventBusSubscriber {
 		RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SPELL_ENTITY.get(), SpellEntityRender::new);
 		RenderTypeLookup.setRenderLayer(BlockInit.FLOO_FIRE.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(BlockInit.FLOO_FIRE_BLOCK.get(), RenderType.getCutout());
+		NameplateTileEntityRenderer.register();
 
 	}
 }

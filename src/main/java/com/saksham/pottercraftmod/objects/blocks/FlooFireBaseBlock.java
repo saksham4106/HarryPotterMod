@@ -13,6 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
 import net.minecraft.block.SixWayBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
@@ -69,6 +70,11 @@ public class FlooFireBaseBlock extends FireBlock {
 	@Override
 	public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
 		worldIn.setBlockState(pos.up(), Blocks.AIR.getDefaultState());
+	}
+	
+	@Override
+	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+		
 	}
 
 	public FlooFireBaseBlock(Properties builder) {
