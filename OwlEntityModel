@@ -1,0 +1,207 @@
+package com.saksham.pottercraftmod.client.entity.model;
+
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.saksham.pottercraftmod.entity.OwlEntity;
+
+import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
+
+
+
+public class OwlEntityModel extends EntityModel<OwlEntity> {
+	private final ModelRenderer Body;
+	private final ModelRenderer head;
+	private final ModelRenderer upperBody;
+	private final ModelRenderer wings;
+	private final ModelRenderer rightWing;
+	private final ModelRenderer wingpart4;
+	private final ModelRenderer wingpart4_r1;
+	private final ModelRenderer wingPart5;
+	private final ModelRenderer wingPart6;
+	private final ModelRenderer leftWing;
+	private final ModelRenderer wingPart;
+	private final ModelRenderer wingPart2;
+	private final ModelRenderer wingpart3;
+	private final ModelRenderer legs;
+	private final ModelRenderer rightLeg;
+	private final ModelRenderer rightToe;
+	private final ModelRenderer leftToe;
+	private final ModelRenderer leg;
+	private final ModelRenderer leftLeg;
+	private final ModelRenderer rightToe2;
+	private final ModelRenderer leftToe2;
+	private final ModelRenderer leg2;
+	private final ModelRenderer tail;
+	private final ModelRenderer neck;
+	private final ModelRenderer beak;
+
+	public OwlEntityModel() {
+		textureWidth = 64;
+		textureHeight = 64;
+
+		Body = new ModelRenderer(this);
+		Body.setRotationPoint(0.0F, 24.0F, 0.0F);
+		
+
+		head = new ModelRenderer(this);
+		head.setRotationPoint(0.0F, 0.0F, 0.0F);
+		Body.addChild(head);
+		setRotationAngle(head, -0.0436F, 0.0F, 0.0F);
+		head.setTextureOffset(0, 15).addBox(-4.0F, -19.501F, -3.6543F, 7.0F, 6.0F, 6.0F, 0.0F, false);
+
+		upperBody = new ModelRenderer(this);
+		upperBody.setRotationPoint(0.0F, -5.0F, 1.0F);
+		Body.addChild(upperBody);
+		setRotationAngle(upperBody, 0.3927F, 0.0F, 0.0F);
+		upperBody.setTextureOffset(0, 0).addBox(-4.0F, -7.2101F, -0.8827F, 7.0F, 9.0F, 6.0F, 0.0F, false);
+		upperBody.setTextureOffset(23, 24).addBox(-4.0F, -7.8588F, -1.3066F, 7.0F, 9.0F, 3.0F, 0.0F, false);
+
+		wings = new ModelRenderer(this);
+		wings.setRotationPoint(0.0F, 0.0F, 0.0F);
+		Body.addChild(wings);
+		
+
+		rightWing = new ModelRenderer(this);
+		rightWing.setRotationPoint(-4.0F, -12.0F, 0.7F);
+		wings.addChild(rightWing);
+		setRotationAngle(rightWing, 0.3927F, 0.0F, 0.0F);
+		rightWing.setTextureOffset(0, 27).addBox(-1.0F, -0.8F, -3.7F, 1.0F, 8.0F, 7.0F, 0.0F, false);
+
+		wingpart4 = new ModelRenderer(this);
+		wingpart4.setRotationPoint(0.3F, 9.0F, 0.9955F);
+		rightWing.addChild(wingpart4);
+		setRotationAngle(wingpart4, -0.0933F, -0.0383F, 0.0201F);
+		
+
+		wingpart4_r1 = new ModelRenderer(this);
+		wingpart4_r1.setRotationPoint(-1.1F, -2.5836F, 0.8945F);
+		wingpart4.addChild(wingpart4_r1);
+		setRotationAngle(wingpart4_r1, 0.0436F, 0.0F, 0.0F);
+		wingpart4_r1.setTextureOffset(35, 0).addBox(-0.5F, -2.9164F, -1.0F, 1.0F, 5.0F, 2.0F, 0.0F, false);
+
+		wingPart5 = new ModelRenderer(this);
+		wingPart5.setRotationPoint(0.0F, 9.3066F, -2.1588F);
+		rightWing.addChild(wingPart5);
+		setRotationAngle(wingPart5, -0.304F, 0.0275F, -0.013F);
+		wingPart5.setTextureOffset(16, 35).addBox(-1.2F, -6.7066F, -0.2771F, 1.0F, 6.0F, 2.0F, 0.0F, false);
+
+		wingPart6 = new ModelRenderer(this);
+		wingPart6.setRotationPoint(0.0F, 7.6173F, -3.6239F);
+		rightWing.addChild(wingPart6);
+		setRotationAngle(wingPart6, 0.7418F, 0.0F, 0.0F);
+		wingPart6.setTextureOffset(36, 36).addBox(-1.0F, -0.4173F, 0.3239F, 1.0F, 2.0F, 2.0F, 0.0F, false);
+
+		leftWing = new ModelRenderer(this);
+		leftWing.setRotationPoint(3.0F, -12.0F, 0.5F);
+		wings.addChild(leftWing);
+		setRotationAngle(leftWing, 0.3491F, 0.0F, 0.0F);
+		leftWing.setTextureOffset(26, 0).addBox(0.0F, -0.4F, -3.5F, 1.0F, 8.0F, 7.0F, 0.0F, false);
+
+		wingPart = new ModelRenderer(this);
+		wingPart.setRotationPoint(1.0F, 7.6173F, -3.4239F);
+		leftWing.addChild(wingPart);
+		setRotationAngle(wingPart, 0.7418F, 0.0F, 0.0F);
+		wingPart.setTextureOffset(30, 36).addBox(-1.0F, -0.1173F, -0.0261F, 1.0F, 2.0F, 2.0F, 0.0F, false);
+
+		wingPart2 = new ModelRenderer(this);
+		wingPart2.setRotationPoint(1.0F, 9.3066F, -1.9588F);
+		leftWing.addChild(wingPart2);
+		setRotationAngle(wingPart2, -0.3039F, 0.046F, 0.0266F);
+		wingPart2.setTextureOffset(17, 27).addBox(-1.0F, -6.2066F, -0.2412F, 1.0F, 6.0F, 2.0F, 0.0F, false);
+
+		wingpart3 = new ModelRenderer(this);
+		wingpart3.setRotationPoint(1.3F, 9.0F, 1.1955F);
+		leftWing.addChild(wingpart3);
+		setRotationAngle(wingpart3, -0.0933F, -0.0383F, 0.0201F);
+		wingpart3.setTextureOffset(0, 27).addBox(-1.0F, -5.1F, -0.1455F, 1.0F, 5.0F, 2.0F, 0.0F, false);
+
+		legs = new ModelRenderer(this);
+		legs.setRotationPoint(0.0F, 0.0F, 0.0F);
+		Body.addChild(legs);
+		
+
+		rightLeg = new ModelRenderer(this);
+		rightLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
+		legs.addChild(rightLeg);
+		rightLeg.setTextureOffset(40, 15).addBox(-4.0F, -2.0F, 1.0F, 2.0F, 2.0F, 1.0F, 0.0F, false);
+		rightLeg.setTextureOffset(22, 36).addBox(-4.0F, -2.0F, 2.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
+
+		rightToe = new ModelRenderer(this);
+		rightToe.setRotationPoint(-3.0F, 0.0F, 0.0F);
+		rightLeg.addChild(rightToe);
+		setRotationAngle(rightToe, 0.0F, -1.0908F, 0.0F);
+		rightToe.setTextureOffset(38, 40).addBox(-1.13F, -2.0F, 0.4F, 2.0F, 2.0F, 1.0F, 0.0F, false);
+
+		leftToe = new ModelRenderer(this);
+		leftToe.setRotationPoint(-3.0F, 0.0F, 0.0F);
+		rightLeg.addChild(leftToe);
+		setRotationAngle(leftToe, 0.0F, 2.618F, 0.0F);
+		leftToe.setTextureOffset(0, 15).addBox(-1.35F, -2.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, false);
+
+		leg = new ModelRenderer(this);
+		leg.setRotationPoint(-2.0F, -2.0F, 2.0F);
+		rightLeg.addChild(leg);
+		setRotationAngle(leg, -0.1745F, 0.0F, 0.0F);
+		leg.setTextureOffset(9, 27).addBox(-2.0F, -4.0F, 0.0F, 2.0F, 4.0F, 2.0F, 0.0F, false);
+
+		leftLeg = new ModelRenderer(this);
+		leftLeg.setRotationPoint(5.0F, 0.0F, 0.0F);
+		legs.addChild(leftLeg);
+		leftLeg.setTextureOffset(20, 15).addBox(-4.0F, -2.0F, 2.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
+		leftLeg.setTextureOffset(32, 40).addBox(-4.0F, -2.0F, 1.0F, 2.0F, 2.0F, 1.0F, 0.0F, false);
+
+		rightToe2 = new ModelRenderer(this);
+		rightToe2.setRotationPoint(-3.0F, 0.0F, 0.0F);
+		leftLeg.addChild(rightToe2);
+		setRotationAngle(rightToe2, 0.0F, -1.0908F, 0.0F);
+		rightToe2.setTextureOffset(26, 40).addBox(-1.13F, -2.0F, 0.4F, 2.0F, 2.0F, 1.0F, 0.0F, false);
+
+		leftToe2 = new ModelRenderer(this);
+		leftToe2.setRotationPoint(-3.0F, 0.0F, 0.0F);
+		leftLeg.addChild(leftToe2);
+		setRotationAngle(leftToe2, 0.0F, 2.618F, 0.0F);
+		leftToe2.setTextureOffset(0, 0).addBox(-1.35F, -2.0F, -1.0F, 1.0F, 2.0F, 2.0F, 0.0F, false);
+
+		leg2 = new ModelRenderer(this);
+		leg2.setRotationPoint(-2.0F, -2.0F, 2.0F);
+		leftLeg.addChild(leg2);
+		setRotationAngle(leg2, -0.1745F, 0.0F, 0.0F);
+		leg2.setTextureOffset(20, 0).addBox(-2.0F, -4.0F, 0.0F, 2.0F, 4.0F, 2.0F, 0.0F, false);
+
+		tail = new ModelRenderer(this);
+		tail.setRotationPoint(0.0F, -4.3F, 6.7F);
+		Body.addChild(tail);
+		setRotationAngle(tail, 0.7854F, 0.0F, 0.0F);
+		tail.setTextureOffset(22, 40).addBox(-1.0F, -2.9414F, 0.0F, 1.0F, 4.0F, 1.0F, 0.0F, false);
+
+		neck = new ModelRenderer(this);
+		neck.setRotationPoint(0.0F, 0.0F, 0.0F);
+		Body.addChild(neck);
+		neck.setTextureOffset(26, 15).addBox(-3.0F, -15.0F, -2.0F, 5.0F, 3.0F, 4.0F, 0.0F, false);
+
+		beak = new ModelRenderer(this);
+		beak.setRotationPoint(0.0F, 0.0F, 0.0F);
+		Body.addChild(beak);
+		beak.setTextureOffset(26, 4).addBox(-1.0F, -17.0F, -3.7F, 1.0F, 2.0F, 2.0F, 0.0F, false);
+	}
+
+
+	@Override
+	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+		Body.render(matrixStack, buffer, packedLight, packedOverlay);
+	}
+
+	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+		modelRenderer.rotateAngleX = x;
+		modelRenderer.rotateAngleY = y;
+		modelRenderer.rotateAngleZ = z;
+	}
+
+	@Override
+	public void setRotationAngles(OwlEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+			float netHeadYaw, float headPitch) {
+		// TODO Auto-generated method stub
+		
+	}
+}
