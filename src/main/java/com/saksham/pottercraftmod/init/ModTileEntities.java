@@ -1,7 +1,7 @@
 package com.saksham.pottercraftmod.init;
 
 import com.saksham.pottercraftmod.PottercraftMod;
-import com.saksham.pottercraftmod.objects.tileentity.NameplateTileEntity;
+import com.saksham.pottercraftmod.tileentity.NameplateTileEntity;
 
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModTileEntities {
 	
-	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = new DeferredRegister<>(
+	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(
 			ForgeRegistries.TILE_ENTITIES, PottercraftMod.MOD_ID);
 	
 

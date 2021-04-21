@@ -1,0 +1,79 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.owl.flap": {
+			"loop": true,
+			"animation_length": 1.44,
+			"bones": {
+				"rightWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2": {
+							"vector": [0, 0, 22.5]
+						},
+						"0.4": {
+							"vector": [-10, 0, 45]
+						},
+						"0.56": {
+							"vector": [-10, -7.5, 90]
+						},
+						"0.8": {
+							"vector": [-10, -7.5, 57.5]
+						},
+						"1.0": {
+							"vector": [-10, -7.5, 85]
+						},
+						"1.24": {
+							"vector": [-10, -7.5, 32.5]
+						},
+						"1.44": {
+							"vector": [0, 0, 2.5]
+						}
+					}
+				},
+				"leftWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2": {
+							"vector": [0, 0, -27.5]
+						},
+						"0.4": {
+							"vector": [-7.5, 17.5, -50]
+						},
+						"0.56": {
+							"vector": [-7.5, 17.5, -85]
+						},
+						"0.8": {
+							"vector": [-7.5, 17.5, -52.5]
+						},
+						"1.0": {
+							"vector": [-7.5, 17.5, -85]
+						},
+						"1.24": {
+							"vector": [-7.5, 17.5, -35]
+						},
+						"1.44": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			},
+			"sound_effects": {
+				"0.56": {
+					"effect": "owl"
+				}
+			},
+			"particle_effects": {
+				"0.56": {
+					"effect": "owl",
+					"locator": "owl"
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

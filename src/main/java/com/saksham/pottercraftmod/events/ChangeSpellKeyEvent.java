@@ -16,9 +16,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 public class ChangeSpellKeyEvent {
 	
 	@SubscribeEvent
-	public static void playerPressJEvent(InputEvent.KeyInputEvent event) {
-		if (KeyBindInit.changeSpell.isPressed()) {
-			
+	public static void playerPressKeybindEvent(InputEvent event) {
+		while(KeyBindInit.changeSpell.isPressed()) {
 			Networking.sendToServer(new ChangeSpellPacket(1));
 		}
 	}

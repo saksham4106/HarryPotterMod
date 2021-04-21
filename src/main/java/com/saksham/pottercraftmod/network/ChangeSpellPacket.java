@@ -2,7 +2,7 @@ package com.saksham.pottercraftmod.network;
 
 import java.util.function.Supplier;
 
-import com.saksham.pottercraftmod.objects.items.WandItem;
+import com.saksham.pottercraftmod.items.WandItem;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;

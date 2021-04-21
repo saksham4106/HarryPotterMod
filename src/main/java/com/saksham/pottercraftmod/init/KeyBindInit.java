@@ -11,11 +11,9 @@ public class KeyBindInit {
 	public static final KeyBinding changeSpell = new KeyBinding("key.change_spell", GLFW.GLFW_KEY_P, "key.categories.misc");
 	public static KeyBinding[] myKeys = ArrayUtils.addAll(new KeyBinding[] {KeyBindInit.changeSpell});
 	public static void registerKeys() {
-	
-		  for(int i=0; i<myKeys.length; i++) {
-		    ClientRegistry.registerKeyBinding(myKeys[i]);
-		  }
-		  
+
+		for (KeyBinding myKey : myKeys) {
+			ClientRegistry.registerKeyBinding(myKey);
 		}
-	
+	}
 }

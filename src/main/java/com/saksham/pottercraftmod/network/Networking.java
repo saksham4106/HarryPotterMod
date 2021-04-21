@@ -28,6 +28,12 @@ public class Networking {
 		.decoder(ChangeSpellPacket::new)
 		.consumer(ChangeSpellPacket::handle)
 		.add();
+		
+		INSTANCE.messageBuilder(FlooStationPacket.class, nextID())
+		.encoder(FlooStationPacket::toBytes)
+		.decoder(FlooStationPacket::new)
+		.consumer(FlooStationPacket::handle)
+		.add();
 	}
 
 	public static void sendToServer(Object packet) {

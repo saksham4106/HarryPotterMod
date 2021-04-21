@@ -1,15 +1,24 @@
 package com.saksham.pottercraftmod.entity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.saksham.pottercraftmod.init.ModEntityTypes;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MoverType;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -24,14 +33,20 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class SpellEntity extends ProjectileItemEntity {
+	private static DataParameter<String> SPELL = EntityDataManager.createKey(SpellEntity.class, DataSerializers.STRING);
+	
+	public LivingEntity shooter;
+	public float lifeSeconds;
+	private int ticksExisted;
 
-	public SpellEntity(EntityType<? extends SpellEntity> p_i50160_1_, World p_i50160_2_) {
-		super(p_i50160_1_, p_i50160_2_);
+	public SpellEntity(EntityType<? extends SpellEntity> entity, World worldIn) {
+		super(entity, worldIn);
 	}
 
-	public SpellEntity(World worldIn, LivingEntity shooter) {
+	public SpellEntity(World worldIn, LivingEntity shooter, float lifeSeconds) {
 		this(worldIn, shooter, 0, 0, 0);
-		this.owner = shooter;
+		this.shooter = shooter;
+		this.lifeSeconds = lifeSeconds;
 		setPosition(shooter.getPosX(), shooter.getPosYEye() - 0.1, shooter.getPosZ());
 	}
 
@@ -42,194 +57,148 @@ public class SpellEntity extends ProjectileItemEntity {
 	public SpellEntity(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
 		super(ModEntityTypes.SPELL_ENTITY.get(), x, y, z, worldIn);
 	}
-	
-	
 
-	protected int ticksExisted;
-	private double knockbackStrength = 0;
+	private double knockbackStrength = 0.1D;
 	private double damage = 1;
 	protected String currentSpell;
 	protected boolean damaged;
-	protected int currentSpellId;
-	private BlockPos waterPos;
-	private boolean flag;
-	private int timer;
-
-	// public String[] spellList = {"stupefy", "avada", "crucio", "imperius",
-	// "incendio", "aguamenti" };
-
-	
-	protected void setTimer(int timer) {
-		this.timer = timer;
-	}
-
-
-	public void setCurrentSpell(String stringIn) {
-		this.currentSpell = stringIn;
-	}
-
-	public String getCurrentSpell() {
-		return this.currentSpell;
-	}
-
-	protected boolean getDamaged() {
-		return damaged;
-	}
-
-	public void setDamaged(boolean damaged) {
-		this.damaged = damaged;
-	}
 
 	@Override
 	public void tick() {
-		
-		if (ticksExisted > 200 || getMotion().lengthSquared() < 0.1) {
-			remove();
-		}
-		ticksExisted++;
-		 
-		 if (isFlag()) {
-			
-			 if (timer > 40) {
-				 timer = 0;
-				 System.out.println(isFlag());
-				 world.setBlockState(this.waterPos, Blocks.AIR.getDefaultState());
-				 setFlag(false);
-				 
-			 }
-			 timer++;
-			 
-			 
-		 }
 		super.tick();
-		
+		this.ticksExisted++;
+		if(this.ticksExisted > 20 * lifeSeconds){
+          //  this.remove();
+		}
+
 	}
-	
-	
-	
-	
-	
 
 	@Override
 	protected void onImpact(RayTraceResult result) {
 		if (!world.isRemote) {
-			
-			if(getCurrentSpell().equals(new String("confringo"))) {
+			LivingEntity shootingEntity = this.shooter;
+
+			if(result.getType() == RayTraceResult.Type.ENTITY || result.getType() == RayTraceResult.Type.BLOCK){
 				BlockPos pos = new BlockPos(result.getHitVec());
-				world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 3, true, Explosion.Mode.DESTROY);
-				
-				
-						
-			}else if(getCurrentSpell().equals(new String("aguamenti"))) {
-				BlockPos pos = new BlockPos(result.getHitVec());
-				world.setBlockState(pos.up(), Blocks.WATER.getDefaultState());
-				setFlag(true);
-				
-			}else if(getCurrentSpell().equals(new String("ascendio"))) {
-				System.out.println("yes");
-				this.move(MoverType.SELF, this.owner.getPositionVec().add(0, 10, 0));
-		        this.owner.moveToBlockPosAndAngles(this.owner.getPosition().up(5), this.owner.rotationYaw, this.owner.rotationPitch);
-		       
+				switch (getCurrentSpell()){
+					case "confringo":
+
+						world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 3, true, Explosion.Mode.DESTROY);
+						break;
+					case "aguamenti":
+						world.setBlockState(pos.up(), Blocks.WATER.getDefaultState());
+						Timer timer = new Timer();
+						timer.schedule(new TimerTask() {
+
+							@Override
+							public void run() {
+								world.setBlockState(pos.up(), Blocks.AIR.getDefaultState());
+							}
+						}, 10 * 1000);
+						break;
+				}
 			}
-			
 
-			if (result.getType() == RayTraceResult.Type.ENTITY) {
-				
-				// Entity base_entity = ((EntityRayTraceResult) result).getEntity();
+			if(result.getType() == RayTraceResult.Type.ENTITY){
+				if(((EntityRayTraceResult) result).getEntity() instanceof LivingEntity){
+					LivingEntity target = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
 
-				LivingEntity target = (LivingEntity) ((EntityRayTraceResult) result).getEntity();
-				
+					switch (getCurrentSpell()){
+						case "avada":
+							setDamaged(target.attackEntityFrom(
+									(new IndirectEntityDamageSource("spell", this, shootingEntity)).setProjectile(),
+									Float.MAX_VALUE));
+							break;
+						case "expelliarmus":
+							ItemStack handItem = target.getHeldItemMainhand();
+							shootingEntity.entityDropItem(handItem);
+							handItem.shrink(handItem.getCount());
+							break;
+						case "crucio":
+							shootingEntity.setFire(10);
+							target.addPotionEffect(new EffectInstance(Effects.WITHER, 600, 2));
+							target.addPotionEffect(new EffectInstance(Effects.POISON, 600, 2));
+							target.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 600, 2));
+							target.addPotionEffect(new EffectInstance(Effects.HUNGER, 600, 2));
+							target.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 600, 2));
+							target.addPotionEffect(new EffectInstance(Effects.UNLUCK, 600, 2));
+							break;
+						case "incendio":
+							target.setFire(15);
+							break;
+						case "stupefy":
+							setKnockbackStrength(5.0D);
+							setDamaged(target.attackEntityFrom(
+								(new IndirectEntityDamageSource("spell", this, shootingEntity)).setProjectile(),
+									(float) (damage / 2)));
+							break;
+						case "wingardium_leviosa":
+							target.addPotionEffect(new EffectInstance(Effects.LEVITATION, 200));
+							break;
+						case "accio":
+							target.moveToBlockPosAndAngles(shootingEntity.getPosition(), target.rotationYaw,
+								this.rotationPitch);
+							break;
+						case "conjunctivitis":
+							target.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 100));
+							if(shootingEntity instanceof PlayerEntity){
+								target.removeTrackingPlayer((ServerPlayerEntity) shootingEntity);
+							}
+							break;
+						case "petrificus":
+							if (target instanceof MobEntity) {
 
-				LivingEntity shootingEntity = this.owner;
-				
-				
+								MobEntity mob = (MobEntity) target;
+								mob.setNoAI(true);
+								Timer timer = new Timer();
+								timer.schedule(new TimerTask() {
 
-				if (getCurrentSpell().equals(new String("avada"))) {
+									@Override
+									public void run() {
+										mob.setNoAI(false);
 
-					boolean damaged = target.attackEntityFrom(
-							(new IndirectEntityDamageSource("arrow", this, shootingEntity)).setProjectile(),
-							Float.MAX_VALUE);
-					setDamaged(damaged);
+									}
+								}, 30 * 1000);
 
-				} else if (getCurrentSpell().equals(new String("crucio"))) {
-					target.addPotionEffect(new EffectInstance(Effects.POISON, 100, 2));
+							}
+							break;
 
-				} else if (getCurrentSpell().equals(new String("incendio"))) {
-					target.setFire(10);
+						default:
+							boolean damaged = target.attackEntityFrom(
+								(new IndirectEntityDamageSource("spell", this, shootingEntity)).setProjectile(),
+								(float) damage);
+							setDamaged(damaged);
+							break;
+						}
 
-				} else if (getCurrentSpell().equals(new String("stupefy"))) {
-					setKnockbackStrength(5.0D);
+					if(isDamaged()){
+						if (knockbackStrength > 0) {
+							Vec3d vec = getMotion().mul(1, 0, 1).normalize().scale(knockbackStrength);
 
-					boolean damaged = target.attackEntityFrom(
-							(new IndirectEntityDamageSource("arrow", this, shootingEntity)).setProjectile(),
-							(float) (damage - (damage * 0.5F)));
-					setDamaged(damaged);
-
-				} else if(getCurrentSpell().equals(new String("wingardium_leviosa"))) {
-					target.addPotionEffect(new EffectInstance(Effects.LEVITATION, 200));
-					
-				}
-				
-				else if(getCurrentSpell().equals(new String("accio"))) {
-					target.moveToBlockPosAndAngles(shootingEntity.getPosition(), target.rotationYaw,this.rotationPitch );
-					
-				}else if(getCurrentSpell().equals(new String("conjunctivits"))) {
-					target.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 100 ));
-					
-				}else if(getCurrentSpell().equals(new String("petrificus"))) {
-					target.setIdleTime(100);
-					
-				}
-				
-				else {
-					boolean damaged = target.attackEntityFrom(
-							(new IndirectEntityDamageSource("arrow", this, shootingEntity)).setProjectile(),
-							(float) damage);
-					setDamaged(damaged);
-				}
-				
-
-				if (getDamaged() && target instanceof LivingEntity) {
-
-					LivingEntity livingTarget = (LivingEntity) target;
-
-					if (knockbackStrength > 0) {
-
-						double actualKnockback = knockbackStrength;
-
-						Vec3d vec = getMotion().mul(1, 0, 1).normalize().scale(actualKnockback);
-
-						if (vec.lengthSquared() > 0)
-							livingTarget.addVelocity(vec.x, 0.1, vec.z);
+							if (vec.lengthSquared() > 0) {
+								target.addVelocity(vec.x, 0.1, vec.z);
+							}
+						}
 					}
 				}
-
-				this.remove();
-				
-			
-			} else if (result.getType() == RayTraceResult.Type.BLOCK) {
-				BlockPos pos = ((BlockRayTraceResult) result).getPos();
-				if(getCurrentSpell().equals(new String("incendio"))) {
+			}else if (result.getType() == RayTraceResult.Type.BLOCK){
+				BlockPos pos =  ((BlockRayTraceResult) result).getPos();
+				System.out.println("this is spell : " + getCurrentSpell());
+				if (getCurrentSpell().equals("incendio")) {
+					System.out.println("oy");
 					summonFire(pos);
 				}
-				
-				this.remove();
 			}
-			
 
-		}
-		if (this != null) {
 			this.remove();
 		}
-	}
 
-	// }
+	}
 
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
 		compound.putDouble("damage", damage);
-
 		compound.putDouble("knockback", knockbackStrength);
 	}
 
@@ -237,7 +206,6 @@ public class SpellEntity extends ProjectileItemEntity {
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		damage = compound.getDouble("damage");
-
 		knockbackStrength = compound.getDouble("knockback");
 	}
 
@@ -270,56 +238,44 @@ public class SpellEntity extends ProjectileItemEntity {
 
 	@Override
 	protected Item getDefaultItem() {
-		// TODO Auto-generated method stub
 		return null;
-		
+
 	}
-	
+
 	public void summonFire(BlockPos pos) {
 		world.setBlockState(pos.up(), Blocks.FIRE.getDefaultState());
-		
-		if (rand.nextInt(2) == 1){
-			world.setBlockState(pos.up().east(), Blocks.FIRE.getDefaultState());
+
+		for(int x = 0; x < 4; x++){
+			for(int z = 0; z < 4; z++){
+				if(rand.nextBoolean()){
+					world.setBlockState(pos.add(x, 1, z), Blocks.FIRE.getDefaultState());
+				}
+			}
 		}
-		if (rand.nextInt(2) == 1){
-			world.setBlockState(pos.up().west(), Blocks.FIRE.getDefaultState());
-		}
-		if (rand.nextInt(2) == 1){
-			world.setBlockState(pos.up().north(), Blocks.FIRE.getDefaultState());
-		}
-		if (rand.nextInt(2) == 1){
-			world.setBlockState(pos.up().south(), Blocks.FIRE.getDefaultState());
-		}
-		if (rand.nextInt(2) == 1){
-			world.setBlockState(pos.up().north().west(), Blocks.FIRE.getDefaultState());
-		}
-		if (rand.nextInt(2) == 1){
-			world.setBlockState(pos.up().south().east(), Blocks.FIRE.getDefaultState());
-		}
-		if (rand.nextInt(2) == 1){
-			world.setBlockState(pos.up().south().west(), Blocks.FIRE.getDefaultState());
-		}
-		if (rand.nextInt(2) == 1){
-			world.setBlockState(pos.up().north().east(), Blocks.FIRE.getDefaultState());
-		}
-			
-		
 	}
 
-	public BlockPos getWaterPos() {
-		return waterPos;
+
+	public void setCurrentSpell(String stringIn) {
+		this.dataManager.set(SPELL, stringIn);
 	}
 
-	public void setWaterPos(BlockPos waterPos) {
-		this.waterPos = waterPos;
+	public String getCurrentSpell() {
+		return this.dataManager.get(SPELL);
 	}
 
-	public boolean isFlag() {
-		return flag;
+	@Override
+	protected void registerData() {
+		super.registerData();
+		this.dataManager.register(SPELL, "stupefy");
 	}
 
-	public void setFlag(boolean flag) {
-		this.flag = flag;
+	protected boolean isDamaged() {
+		return damaged;
 	}
+
+	public void setDamaged(boolean damaged) {
+		this.damaged = damaged;
+	}
+
 
 }
