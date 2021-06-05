@@ -3,14 +3,14 @@ package com.saksham.pottercraftmod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.saksham.pottercraftmod.blocks.FlooFireBlock;
-import com.saksham.pottercraftmod.blocks.NameplateBlock;
-import com.saksham.pottercraftmod.init.BlockInit;
-import com.saksham.pottercraftmod.init.ItemInit;
-import com.saksham.pottercraftmod.init.ModEntityTypes;
-import com.saksham.pottercraftmod.init.ModTileEntities;
-import com.saksham.pottercraftmod.init.ParticleInit;
-import com.saksham.pottercraftmod.network.Networking;
+import com.saksham.pottercraftmod.common.blocks.FlooFireBlock;
+import com.saksham.pottercraftmod.common.blocks.NameplateBlock;
+import com.saksham.pottercraftmod.common.init.BlockInit;
+import com.saksham.pottercraftmod.common.init.ItemInit;
+import com.saksham.pottercraftmod.common.init.ModEntityTypes;
+import com.saksham.pottercraftmod.common.init.ModTileEntities;
+import com.saksham.pottercraftmod.common.init.ParticleInit;
+import com.saksham.pottercraftmod.core.network.Networking;
 
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.item.BlockItem;

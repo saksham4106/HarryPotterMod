@@ -4,15 +4,14 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.saksham.pottercraftmod.network.Networking;
-import com.saksham.pottercraftmod.network.FlooStationPacket;
-import com.saksham.pottercraftmod.tileentity.NameplateTileEntity;
-import com.saksham.pottercraftmod.tileentity.tileentityrenderer.NameplaterRenderer;
+import com.saksham.pottercraftmod.core.network.Networking;
+import com.saksham.pottercraftmod.core.network.FlooStationPacket;
+import com.saksham.pottercraftmod.common.tileentity.NameplateTileEntity;
+import com.saksham.pottercraftmod.common.tileentity.tileentityrenderer.NameplaterRenderer;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.StandingSignBlock;
 import net.minecraft.client.gui.fonts.TextInputUtil;
-import net.minecraft.client.gui.screen.EditSignScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -25,13 +24,8 @@ import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TranslationTextComponent;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 public class NameplateScreen extends Screen {
 	private final NameplaterRenderer.NameplateModel signModel = new NameplaterRenderer.NameplateModel();
@@ -45,18 +39,14 @@ public class NameplateScreen extends Screen {
 		this.tileSign = teSign;
 	}
 
-	private void setFlooStation() {
-		Networking.sendToServer(new FlooStationPacket(1, this.tileSign.getPos(), this.tileSign.getText(0).getString()
-				+ this.tileSign.getText(1).getString() + this.tileSign.getText(2).getString() + this.tileSign.getText(3).getString()));
-	}
-
 	protected void init() {
 		this.minecraft.keyboardListener.enableRepeatEvents(true);
 		this.addButton(new Button(this.width / 2 - 100, this.height / 4 + 120, 200, 20, I18n.format("Set FlooStation"),
 				(p_214266_1_) -> {
-					
-					this.setFlooStation();
-					this.minecraft.displayGuiScreen((Screen) null);
+					Networking.sendToServer(new FlooStationPacket(1, this.tileSign.getPos(), this.tileSign.getText(0).getString()
+							+ this.tileSign.getText(1).getString() + this.tileSign.getText(2).getString() + this.tileSign.getText(3).getString()));
+
+					this.minecraft.displayGuiScreen(null);
 
 				}));
 		this.addButton(
@@ -64,12 +54,8 @@ public class NameplateScreen extends Screen {
 					this.close();
 				}));
 
-		this.textInputUtil = new TextInputUtil(this.minecraft, () -> {
-			return this.tileSign.getText(this.editLine).getString();
-		}, (text) -> {
-			this.tileSign.setText(this.editLine, new StringTextComponent(text));
-
-		}, 90);
+		this.textInputUtil = new TextInputUtil(this.minecraft, () -> this.tileSign.getText(this.editLine).getString(),
+				(text) -> this.tileSign.setText(this.editLine, new StringTextComponent(text)), 90);
 
 	}
 

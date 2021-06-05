@@ -1,8 +1,8 @@
 package com.saksham.pottercraftmod.client.gui;
 
-import com.saksham.pottercraftmod.init.BlockInit;
-import com.saksham.pottercraftmod.network.FlooStationPacket;
-import com.saksham.pottercraftmod.network.Networking;
+import com.saksham.pottercraftmod.common.init.BlockInit;
+import com.saksham.pottercraftmod.core.network.FlooStationPacket;
+import com.saksham.pottercraftmod.core.network.Networking;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -41,7 +41,8 @@ public class FlooTeleportScreen extends Screen {
 				}));
 		
 		 this.destinationTextWidget = new TextFieldWidget(this.font, this.width / 2 - 150, 50, 300, 20, "hmmm");
-		 this.destinationTextWidget.setEnabled(true);
+		 this.destinationTextWidget.setFocused2(true);
+		 this.setFocusedDefault(this.destinationTextWidget);
 		 this.children.add(this.destinationTextWidget);
 
 	}
@@ -50,12 +51,6 @@ public class FlooTeleportScreen extends Screen {
 		this.minecraft.keyboardListener.enableRepeatEvents(false);
 	}
 
-	public void tick() {
-		if(this.player.world.getBlockState(pos) != BlockInit.FLOO_FIRE.get().getDefaultState()) {
-			this.close();
-		}
-	}
-	
 	@Override
 	public boolean isPauseScreen() {
 		return false;

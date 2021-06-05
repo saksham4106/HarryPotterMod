@@ -1,8 +1,7 @@
 package com.saksham.pottercraftmod.client.entity.model;
 
 import com.saksham.pottercraftmod.PottercraftMod;
-import com.saksham.pottercraftmod.entity.OwlEntity;
-import com.saksham.pottercraftmod.entity.UnicornEntity;
+import com.saksham.pottercraftmod.common.entity.UnicornEntity;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

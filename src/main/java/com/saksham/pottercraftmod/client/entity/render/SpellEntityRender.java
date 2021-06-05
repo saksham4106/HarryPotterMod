@@ -1,7 +1,7 @@
 package com.saksham.pottercraftmod.client.entity.render;
 
 import com.saksham.pottercraftmod.PottercraftMod;
-import com.saksham.pottercraftmod.entity.SpellEntity;
+import com.saksham.pottercraftmod.common.entity.SpellEntity;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;

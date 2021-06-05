@@ -2,7 +2,7 @@ package com.saksham.pottercraftmod.client.entity.render;
 
 import com.saksham.pottercraftmod.PottercraftMod;
 import com.saksham.pottercraftmod.client.entity.model.OwlEntityModel;
-import com.saksham.pottercraftmod.entity.OwlEntity;
+import com.saksham.pottercraftmod.common.entity.OwlEntity;
 
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;

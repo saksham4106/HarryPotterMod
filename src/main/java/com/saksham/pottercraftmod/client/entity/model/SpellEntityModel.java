@@ -2,7 +2,7 @@ package com.saksham.pottercraftmod.client.entity.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.saksham.pottercraftmod.entity.SpellEntity;
+import com.saksham.pottercraftmod.common.entity.SpellEntity;
 
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
