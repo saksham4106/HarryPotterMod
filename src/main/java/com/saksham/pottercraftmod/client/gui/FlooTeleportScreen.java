@@ -1,5 +1,6 @@
 package com.saksham.pottercraftmod.client.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.saksham.pottercraftmod.common.init.BlockInit;
 import com.saksham.pottercraftmod.core.network.FlooStationPacket;
 import com.saksham.pottercraftmod.core.network.Networking;
@@ -11,6 +12,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class FlooTeleportScreen extends Screen {
@@ -28,7 +30,7 @@ public class FlooTeleportScreen extends Screen {
 	protected void init() {
 		this.minecraft.keyboardListener.enableRepeatEvents(true);
 		this.addButton(new Button(this.width / 2 - 100, this.height / 4 + 120, 200, 20,
-				I18n.format(new TranslationTextComponent("pottercraftmod.button.teleportfloo").getFormattedText()),
+				new StringTextComponent("pottercraftmod.button.teleportfloo"),
 				(p_214266_1_) -> {
 					Networking.sendToServer(new FlooStationPacket(2, pos, this.destinationTextWidget.getText()));
 					this.close();
@@ -36,11 +38,11 @@ public class FlooTeleportScreen extends Screen {
 				}));
 		this.addButton(
 				new Button(this.width / 2 - 25, this.height / 4 + 150, 50, 20,
-						I18n.format(new TranslationTextComponent("pottercraftmod.screen.cancel").getFormattedText()), (p_214266_1_) -> {
+						new StringTextComponent("pottercraftmod.screen.cancel"), (p_214266_1_) -> {
 					this.close();
 				}));
 		
-		 this.destinationTextWidget = new TextFieldWidget(this.font, this.width / 2 - 150, 50, 300, 20, "hmmm");
+		 this.destinationTextWidget = new TextFieldWidget(this.font, this.width / 2 - 150, 50, 300, 20, new StringTextComponent("hmmm"));
 		 this.destinationTextWidget.setFocused2(true);
 		 this.setFocusedDefault(this.destinationTextWidget);
 		 this.children.add(this.destinationTextWidget);
@@ -60,13 +62,14 @@ public class FlooTeleportScreen extends Screen {
 		this.minecraft.displayGuiScreen((Screen) null);
 	}
 
-	public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
+	@Override
+	public void render(MatrixStack matrixStack, int p_render_1_, int p_render_2_, float p_render_3_) {
 		RenderHelper.setupGuiFlatDiffuseLighting();
-		this.renderBackground();
-		this.drawCenteredString(this.font, this.title.getFormattedText(), this.width / 2, 40, 16777215);
-		this.destinationTextWidget.render(p_render_1_, p_render_2_, p_render_3_);
+		this.renderBackground(matrixStack);
+		drawString(matrixStack, this.font, this.title, this.width / 2, 40, 16777215);
+		this.destinationTextWidget.render(matrixStack, p_render_1_, p_render_2_, p_render_3_);
 
-		super.render(p_render_1_, p_render_2_, p_render_3_);
+		super.render(matrixStack, p_render_1_, p_render_2_, p_render_3_);
 	}
 	
 	

@@ -12,7 +12,7 @@ public class BannerInit {
 	        
 	        final ResourceLocation regId = new ResourceLocation(PottercraftMod.MOD_ID, id);
 	        final String snakeName = regId.toString().replace(':', '_');
-			return BannerPattern.create(snakeName.toUpperCase(), snakeName, snakeName, idk);
+			return BannerPattern.create(snakeName.toUpperCase(), snakeName, snakeName, false);
 	    }
 
 	

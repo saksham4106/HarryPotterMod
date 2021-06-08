@@ -11,7 +11,7 @@ import com.saksham.pottercraftmod.common.init.ModEntityTypes;
 import com.saksham.pottercraftmod.common.init.ModTileEntities;
 import com.saksham.pottercraftmod.core.network.ChangeSpellPacket;
 import com.saksham.pottercraftmod.core.network.Networking;
-import com.saksham.pottercraftmod.common.tileentity.tileentityrenderer.NameplaterRenderer;
+import com.saksham.pottercraftmod.client.tileentityrenderer.NameplaterRenderer;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -29,7 +29,6 @@ public class ClientEventBusSubscriber {
 
 	@SubscribeEvent
 	public static void clientSetup(FMLClientSetupEvent event) {
-		
 		KeyBindInit.registerKeys();
 		MinecraftForge.EVENT_BUS.addListener(SpellRenderFont::render);
 		RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SPELL_ENTITY.get(), SpellEntityRender::new);
@@ -38,17 +37,5 @@ public class ClientEventBusSubscriber {
 		RenderTypeLookup.setRenderLayer(BlockInit.FLOO_FIRE.get(), RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(BlockInit.FLOO_FIRE_BLOCK.get(), RenderType.getCutout());
 		ClientRegistry.bindTileEntityRenderer(ModTileEntities.NAMEPLATE.get(), NameplaterRenderer::new);
-		keybindingListener(event);
-		
-		
 	}
-	
-	public static void keybindingListener(FMLClientSetupEvent event) {
-		if (KeyBindInit.changeSpell.isPressed()) {
-			System.out.println("hello");
-			Networking.sendToServer(new ChangeSpellPacket(1));
-		}
-	}
-	
-	
 }

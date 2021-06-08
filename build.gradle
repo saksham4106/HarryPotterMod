@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.+', changing: true
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -13,13 +13,15 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '1.0'
-group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'modid'
+group = 'com.saksham.pottercraft' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'pottercraft'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20201105-1.15.1'
+    mappings channel: 'snapshot', version: '20210309-1.16.5'
+
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
@@ -75,28 +77,12 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.2.47'
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
-
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.16.5:3.0.39')
 
 }
 repositories {
-    maven {
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
-    }
-}
-
-repositories{
-    maven { url 'https://repo.repsy.io/mvn/gandiber/geckolib' }
-}
-dependencies{
-    compile fg.deobf('software.bernie.geckolib:forge-1.15.2-geckolib:3.0.0')
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
 
 
@@ -106,32 +92,54 @@ dependencies{
 jar {
     manifest {
         attributes([
-            "Specification-Title": "examplemod",
-            "Specification-Vendor": "examplemodsareus",
+            "Specification-Title": "pottercraft",
+            "Specification-Vendor": "Saksham",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"examplemodsareus",
+            "Implementation-Vendor" :"Saksham",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
 
-// Example configuration to allow publishing using the maven-publish task
-// This is the preferred method to reobfuscate your jar file
-jar.finalizedBy('reobfJar') 
-// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
-//publish.dependsOn('reobfJar')
+// Bonus stuff!
+import groovy.json.JsonParserType
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+processResources {
+    // Will allow gradle.properties version fill inside mods.toml file
+    // This will ensure that this task is redone when the versions change.
+    inputs.property 'version', project.version
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
+    // Replace stuff in mods.toml, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META-INF/mods.toml'
+
+        // Replace version
+        expand 'version':project.version
     }
-    repositories {
-        maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+
+    // Copy everything else except the mods.toml
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'META-INF/mods.toml'
+    }
+
+
+    // Will minify the JSON files of your mod when you build the jar.
+    // Helps reduce files size! Minify means it will strip whitespace
+    // and turn the JSON files into 1 liners.
+    doLast {
+        def jsonMinifyStart = System.currentTimeMillis()
+        def jsonMinified = 0
+        def jsonBytesSaved = 0
+        fileTree(dir: outputs.files.asPath, include: '**/*.json').each {
+            File file = it
+            jsonMinified++
+            def oldLength = file.length()
+            file.text = JsonOutput.toJson(new JsonSlurper(type: JsonParserType.LAX).parse(file))
+            jsonBytesSaved += oldLength - file.length()
         }
+        println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
     }
 }

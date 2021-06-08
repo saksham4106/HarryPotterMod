@@ -1,24 +1,25 @@
 package com.saksham.pottercraftmod.core.network;
 
+import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.saksham.pottercraftmod.PottercraftMod;
 
-import com.sun.istack.internal.Nullable;
-import jdk.nashorn.internal.ir.Block;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class FlooNetworkSavedData extends WorldSavedData {
 
@@ -58,7 +59,7 @@ public class FlooNetworkSavedData extends WorldSavedData {
 	public static FlooNetworkSavedData get(World world) {
 		MinecraftServer server = world.getServer();
 		if (server != null) {
-			ServerWorld serverWorld = server.getWorld(world.dimension.getType());
+			ServerWorld serverWorld = world.getServer().getWorld(World.OVERWORLD);
 			DimensionSavedDataManager storage = serverWorld.getSavedData();
 			return storage.getOrCreate(FlooNetworkSavedData::new, DATA_NAME);
 		}
@@ -79,7 +80,7 @@ public class FlooNetworkSavedData extends WorldSavedData {
 		Iterator<String> i = this.data.keySet().iterator();
 		
 		while (i.hasNext() && !removedPlace) {
-			String nextPlaceName = (String) i.next();
+			String nextPlaceName = i.next();
 			if (this.data.get(nextPlaceName).equals(pos)) {
 				PottercraftMod.LOGGER.info(
 						"Removed FlooStation at (" + pos.toString() + "). Name: " + nextPlaceName);

@@ -5,30 +5,22 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.saksham.pottercraftmod.client.ScreenHandler;
-import com.saksham.pottercraftmod.client.gui.FlooTeleportScreen;
 import com.saksham.pottercraftmod.common.init.BlockInit;
 
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 
 public class FlooFireBlock extends Block{
@@ -78,18 +70,6 @@ public class FlooFireBlock extends Block{
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
       if(!(worldIn.getBlockState(pos.down()) == BlockInit.FLOO_FIRE_BLOCK.get().getDefaultState())) {
           worldIn.removeBlock(pos, false);
-      }
-    }
-
-    public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-      if (oldState.getBlock() != state.getBlock()) {
-         if (worldIn.dimension.getType() != DimensionType.OVERWORLD && worldIn.dimension.getType() != DimensionType.THE_NETHER) {
-            if (!state.isValidPosition(worldIn, pos)) {
-               worldIn.removeBlock(pos, false);
-            } else {
-               worldIn.getPendingBlockTicks().scheduleTick(pos, this, this.tickRate(worldIn) + worldIn.rand.nextInt(10));
-            }
-         }
       }
     }
 

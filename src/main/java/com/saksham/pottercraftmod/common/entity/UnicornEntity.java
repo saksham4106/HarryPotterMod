@@ -4,9 +4,12 @@ import javax.annotation.Nullable;
 
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.controller.AnimationController;
@@ -21,17 +24,9 @@ public class UnicornEntity extends AnimalEntity implements IAnimatable {
         super(type, worldIn);
     }
 
-    @Nullable
-    @Override
-    public AgeableEntity createChild(AgeableEntity ageable) {
-        return null;
-    }
-
-    @Override
-    protected void registerAttributes() {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6.0D);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)0.2F);
+    public static AttributeModifierMap.MutableAttribute createAttributes() {
+        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MOVEMENT_SPEED, 1)
+                .createMutableAttribute(Attributes.MAX_HEALTH, 10.0);
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -47,5 +42,11 @@ public class UnicornEntity extends AnimalEntity implements IAnimatable {
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
         return PlayState.CONTINUE;
+    }
+
+    @Nullable
+    @Override
+    public AgeableEntity createChild(ServerWorld world, AgeableEntity mate) {
+        return null;
     }
 }

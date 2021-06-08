@@ -34,10 +34,10 @@ public class BlockInit {
 	public static final RegistryObject<Block> ASH_GRAVEL = BLOCKS.register("ash_gravel",
 			() -> new GravelBlock(Block.Properties.from(Blocks.GRAVEL)));
 
-	public static final RegistryObject<Block> FORBIDDEN_LOG = BLOCKS.register("forbidden_log",
-			() -> new Block(Block.Properties.from(Blocks.DARK_OAK_LOG)));
-
-	public static final RegistryObject<Block> FORBIDDEN_LEAVES = BLOCKS.register("forbidden_leaves",
-			() -> new Block(Block.Properties.from(Blocks.DARK_OAK_LEAVES)));
+//	public static final RegistryObject<Block> FORBIDDEN_LOG = BLOCKS.register("forbidden_log",
+//			() -> new Block(Block.Properties.from(Blocks.DARK_OAK_LOG)));
+//
+//	public static final RegistryObject<Block> FORBIDDEN_LEAVES = BLOCKS.register("forbidden_leaves",
+//			() -> new Block(Block.Properties.from(Blocks.DARK_OAK_LEAVES)));
 
 }

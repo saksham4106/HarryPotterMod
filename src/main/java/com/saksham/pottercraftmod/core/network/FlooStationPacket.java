@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.saksham.pottercraftmod.core.util.FlooStationValidator;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
@@ -58,7 +59,6 @@ public class FlooStationPacket {
 					player.attemptTeleport(pos2.getX(), pos2.getY(), pos2.getZ(), false);
 				}
 			}
-
 		});
 		return true;
 	}

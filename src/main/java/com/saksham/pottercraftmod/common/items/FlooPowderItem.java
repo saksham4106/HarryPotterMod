@@ -8,10 +8,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FireBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FireChargeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -41,7 +38,7 @@ public class FlooPowderItem extends Item {
 		BlockPos pos = context.getPos().offset(context.getFace());
 		World world = context.getWorld();
 
-		if(canSetFlooFire(world.getBlockState(pos), world, pos)){
+		if(canSetFlooFire(world.getBlockState(pos), context, world, pos)){
 			BlockState blockState = ((FlooFireBaseBlock)BlockInit.FLOO_FIRE_BLOCK.get()).getStateForPlacement(world, pos);
 			world.setBlockState(pos, blockState, 11);
 			world.setBlockState(pos.up(), BlockInit.FLOO_FIRE.get().getDefaultState());
@@ -53,8 +50,9 @@ public class FlooPowderItem extends Item {
 		}
 	}
 
-	public static boolean canSetFlooFire(BlockState existingState, IWorld worldIn, BlockPos posIn) {
-		BlockState blockstate = ((FireBlock) Blocks.FIRE).getStateForPlacement(worldIn, posIn);
+	public static boolean canSetFlooFire(BlockState existingState, ItemUseContext context, World worldIn, BlockPos posIn) {
+		BlockItemUseContext co = new BlockItemUseContext(context);
+		BlockState blockstate = BlockInit.FLOO_FIRE_BLOCK.get().getStateForPlacement(co);
 		return existingState.isAir(worldIn, posIn) && (blockstate.isValidPosition(worldIn, posIn));
 	}
 	

@@ -1,8 +1,10 @@
 modLoader="javafml" #mandatory
 
-loaderVersion="[31,)"
+loaderVersion="[32,)"
 
-issueTrackerURL="http://my.issue.tracker/" #optional
+license="MIT License"
+
+issueTrackerURL="https://github.com/saksham4106" #optional
 
 [[mods]] #mandatory
 
@@ -18,38 +20,8 @@ displayURL="http://example.com/" #optional
 
 logoFile="examplemod.png" #optional
 
-credits="Thanks to my family" #optional
-
 authors="Saksham Kumar" #optional
 
 description='''
-i dont like to write descriptions
+a harry potter mod :eyes:
 '''
-
-
-
-[[dependencies.pottercraftmod]] #optional
-    # the modid of the dependency
-    modId="forge" #mandatory
-    # Does this dependency have to exist - if not, ordering below must be specified
-    mandatory=true #mandatory
-    # The version range of the dependency
-    versionRange="[31,)" #mandatory
-    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
-    ordering="NONE"
-    # Side this dependency is applied on - BOTH, CLIENT or SERVER
-    side="BOTH"
-
-[[dependencies.pottercraftmod]]
-    modId="jei"
-    mandatory=true
-    versionRange="[6.0,)"
-    ordering="NONE"
-    side="BOTH"
-    
-[[dependencies.examplemod]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.15.2]"
-    ordering="NONE"
-    side="BOTH"

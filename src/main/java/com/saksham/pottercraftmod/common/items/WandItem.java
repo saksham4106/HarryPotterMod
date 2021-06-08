@@ -83,20 +83,23 @@ public class WandItem extends ShootableItem {
 		shot.setNoGravity(true);
 
 		shot.setCurrentSpell(getCurrentSpell());
-		shot.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0, (float) 2, 5);
+		shot.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0, (float) 2, 5);
 		Random rand = new Random();
 		if(rand.nextInt(5) == 2){
 			wand.damageItem(1, playerIn, (player) -> player.sendBreakAnimation(Hand.MAIN_HAND));
 		}
 		worldIn.addEntity(shot);
 
-
-
 	}
 
 	@Override
 	public Predicate<ItemStack> getInventoryAmmoPredicate() {
 		return null;
+	}
+
+	@Override
+	public int func_230305_d_() {
+		return 15;
 	}
 
 }

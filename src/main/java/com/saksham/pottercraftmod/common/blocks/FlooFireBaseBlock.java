@@ -32,10 +32,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class FlooFireBaseBlock extends FireBlock{
 
@@ -56,7 +53,7 @@ public class FlooFireBaseBlock extends FireBlock{
 	}
 
 	public FlooFireBaseBlock(Properties builder) {
-		super(builder.noDrops().notSolid().lightValue(6));
+		super(builder.noDrops().notSolid().setLightLevel((blockState) -> 6));
 		this.setDefaultState(
 				this.stateContainer.getBaseState().with(AGE, 0).with(NORTH, Boolean.FALSE)
 						.with(EAST, Boolean.FALSE).with(SOUTH, Boolean.FALSE)
@@ -82,7 +79,7 @@ public class FlooFireBaseBlock extends FireBlock{
 		BlockPos blockpos = pos.down();
 		BlockState blockstate = blockReader.getBlockState(blockpos);
 		if (!this.canCatchFire(blockReader, pos, Direction.UP)
-				&& !Block.hasSolidSide(blockstate, blockReader, blockpos, Direction.UP)) {
+				&& !blockstate.isSolidSide(blockReader, blockpos, Direction.UP)) {
 			BlockState blockstate1 = this.getDefaultState();
 
 			for (Direction direction : Direction.values()) {
@@ -130,24 +127,9 @@ public class FlooFireBaseBlock extends FireBlock{
 
 	@Deprecated // Forge: Use canCatchFire with more context
 	public boolean canBurn(BlockState state) {
-		return this.func_220275_r(state) > 0;
+		return this.getFireSpreadSpeed(state) > 0;
 	}
 
-	public void onBlockAdded(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-		if (oldState.getBlock() != state.getBlock()) {
-			if (worldIn.dimension.getType() != DimensionType.OVERWORLD
-					&& worldIn.dimension.getType() != DimensionType.THE_NETHER
-					) {
-				if (!state.isValidPosition(worldIn, pos)) {
-					worldIn.removeBlock(pos, false);
-					worldIn.removeBlock(pos.up(), false);
-				} else {
-					worldIn.getPendingBlockTicks().scheduleTick(pos, this,
-							this.tickRate(worldIn) + worldIn.rand.nextInt(10));
-				}
-			}
-		}
-	}
 
 	@Override
 	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
@@ -160,7 +142,7 @@ public class FlooFireBaseBlock extends FireBlock{
 		BlockPos blockpos = pos.down();
 		BlockState blockstate = worldIn.getBlockState(blockpos);
 		if (!this.canCatchFire(worldIn, blockpos, Direction.UP)
-				&& !Block.hasSolidSide(blockstate, worldIn, blockpos, Direction.UP)) {
+				&& !blockstate.isSolidSide(worldIn, blockpos, Direction.UP)) {
 			if (this.canCatchFire(worldIn, blockpos.west(), Direction.EAST)) {
 				for (int j = 0; j < 2; ++j) {
 					double d3 = (double) pos.getX() + rand.nextDouble() * (double) 0.1F;

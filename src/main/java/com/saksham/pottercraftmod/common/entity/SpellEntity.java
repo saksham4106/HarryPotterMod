@@ -27,7 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -173,7 +173,7 @@ public class SpellEntity extends ProjectileItemEntity {
 
 					if(isDamaged()){
 						if (knockbackStrength > 0) {
-							Vec3d vec = getMotion().mul(1, 0, 1).normalize().scale(knockbackStrength);
+							Vector3d vec = getMotion().mul(1, 0, 1).normalize().scale(knockbackStrength);
 
 							if (vec.lengthSquared() > 0) {
 								target.addVelocity(vec.x, 0.1, vec.z);
