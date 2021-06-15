@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pottercraftmod:blocks/ministry_of_magic_brick1",
+    "top": "pottercraftmod:blocks/ministry_of_magic_brick1",
+    "side": "pottercraftmod:blocks/ministry_of_magic_brick1"
+  }
+}

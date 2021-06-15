@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "pottercraftmod:block/floo_lantern"
+    },
+    "hanging=true": {
+      "model": "pottercraftmod:block/floo_lantern_hanging"
+    }
+  }
+}

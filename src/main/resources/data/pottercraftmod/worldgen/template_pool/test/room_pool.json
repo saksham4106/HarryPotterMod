@@ -1,13 +1,11 @@
 {
-  "name": "pottercraftmod:test/start_pool",
-
+  "name": "pottercraftmod:test/side_pool",
   "fallback": "minecraft:empty",
-
   "elements": [
     {
-      "weight": 1,
-      "element": {
-        "location": "pottercraftmod:run_down_house_left_side",
+      "weight": 2,
+      "element":{
+        "location": "pottercraftmod:room",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

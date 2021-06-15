@@ -3,7 +3,7 @@ package com.saksham.pottercraftmod.common.items;
 
 import com.saksham.pottercraftmod.common.blocks.NameplateBlock;
 import com.saksham.pottercraftmod.client.gui.NameplateScreen;
-import com.saksham.pottercraftmod.common.init.BlockInit;
+import com.saksham.pottercraftmod.common.registry.BlockInit;
 import com.saksham.pottercraftmod.common.tileentity.NameplateTileEntity;
 
 import net.minecraft.client.Minecraft;

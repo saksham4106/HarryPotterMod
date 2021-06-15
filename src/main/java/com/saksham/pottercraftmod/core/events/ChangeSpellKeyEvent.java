@@ -2,7 +2,7 @@ package com.saksham.pottercraftmod.core.events;
 
 
 import com.saksham.pottercraftmod.PottercraftMod;
-import com.saksham.pottercraftmod.common.init.KeyBindInit;
+import com.saksham.pottercraftmod.common.registry.KeyBindInit;
 import com.saksham.pottercraftmod.core.network.Networking;
 import com.saksham.pottercraftmod.core.network.ChangeSpellPacket;
 

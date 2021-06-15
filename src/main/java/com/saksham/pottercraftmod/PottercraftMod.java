@@ -1,7 +1,7 @@
 package com.saksham.pottercraftmod;
 
 import com.mojang.serialization.Codec;
-import com.saksham.pottercraftmod.common.init.*;
+import com.saksham.pottercraftmod.common.registry.*;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -115,9 +115,10 @@ public class PottercraftMod
     public void biomeModification(final BiomeLoadingEvent event){
     	event.getGeneration().getStructures().add(() -> ConfiguredStructures.CONFIGURED_TEST);
 	}
+
 	private static Method GETCODEC_METHOD;
     @SubscribeEvent
-   public void addDimensionalSpacing(final WorldEvent.Load event){
+   	public void addDimensionalSpacing(final WorldEvent.Load event){
     	if(event.getWorld() instanceof ServerWorld){
     		ServerWorld serverWorld = (ServerWorld) event.getWorld();
 
@@ -164,7 +165,6 @@ public class PottercraftMod
 
 		@Override
 		public ItemStack createIcon() {
-			// TODO Auto-generated method stub
 			return ItemInit.WAND.get().getDefaultInstance();
 		}
    	}

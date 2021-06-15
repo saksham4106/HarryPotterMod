@@ -1,6 +1,6 @@
 package com.saksham.pottercraftmod.core.util;
 
-import com.saksham.pottercraftmod.common.init.BlockInit;
+import com.saksham.pottercraftmod.common.registry.BlockInit;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

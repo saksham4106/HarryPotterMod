@@ -5,7 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.saksham.pottercraftmod.client.ScreenHandler;
-import com.saksham.pottercraftmod.common.init.BlockInit;
+import com.saksham.pottercraftmod.common.registry.BlockInit;
 
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;

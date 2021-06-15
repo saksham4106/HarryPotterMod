@@ -1,4 +1,4 @@
-package com.saksham.pottercraftmod.common.init;
+package com.saksham.pottercraftmod.common.registry;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.glfw.GLFW;

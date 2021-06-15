@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 import com.saksham.pottercraftmod.common.entity.SpellEntity;
-import com.saksham.pottercraftmod.common.init.ItemInit;
+import com.saksham.pottercraftmod.common.registry.ItemInit;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;

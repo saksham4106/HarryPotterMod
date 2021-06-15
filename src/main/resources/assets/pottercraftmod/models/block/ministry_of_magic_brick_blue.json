@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "pottercraftmod:blocks/ministry_of_magic_brick_blue"
+    }
+}

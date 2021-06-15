@@ -3,7 +3,7 @@ package com.saksham.pottercraftmod.core.events;
 import com.saksham.pottercraftmod.PottercraftMod;
 import com.saksham.pottercraftmod.common.entity.OwlEntity;
 import com.saksham.pottercraftmod.common.entity.UnicornEntity;
-import com.saksham.pottercraftmod.common.init.ModEntityTypes;
+import com.saksham.pottercraftmod.common.registry.ModEntityTypes;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

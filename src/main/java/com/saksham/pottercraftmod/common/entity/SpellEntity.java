@@ -3,7 +3,7 @@ package com.saksham.pottercraftmod.common.entity;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.saksham.pottercraftmod.common.init.ModEntityTypes;
+import com.saksham.pottercraftmod.common.registry.ModEntityTypes;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;

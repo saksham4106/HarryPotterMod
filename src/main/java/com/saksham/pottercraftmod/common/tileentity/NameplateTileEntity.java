@@ -1,10 +1,9 @@
 package com.saksham.pottercraftmod.common.tileentity;
 
-import com.saksham.pottercraftmod.common.init.ModTileEntities;
+import com.saksham.pottercraftmod.common.registry.ModTileEntities;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.SignTileEntity;
 import net.minecraft.tileentity.TileEntityType;

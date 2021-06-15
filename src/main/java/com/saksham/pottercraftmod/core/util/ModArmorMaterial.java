@@ -2,7 +2,7 @@ package com.saksham.pottercraftmod.core.util;
 
 import java.util.function.Supplier;
 
-import com.saksham.pottercraftmod.common.init.ItemInit;
+import com.saksham.pottercraftmod.common.registry.ItemInit;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;

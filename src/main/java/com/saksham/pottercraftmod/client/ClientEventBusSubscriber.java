@@ -5,12 +5,10 @@ import com.saksham.pottercraftmod.client.entity.render.OwlEntityRenderer;
 import com.saksham.pottercraftmod.client.entity.render.SpellEntityRender;
 import com.saksham.pottercraftmod.client.entity.render.UnicornEntityRenderer;
 import com.saksham.pottercraftmod.client.gui.SpellRenderFont;
-import com.saksham.pottercraftmod.common.init.BlockInit;
-import com.saksham.pottercraftmod.common.init.KeyBindInit;
-import com.saksham.pottercraftmod.common.init.ModEntityTypes;
-import com.saksham.pottercraftmod.common.init.ModTileEntities;
-import com.saksham.pottercraftmod.core.network.ChangeSpellPacket;
-import com.saksham.pottercraftmod.core.network.Networking;
+import com.saksham.pottercraftmod.common.registry.BlockInit;
+import com.saksham.pottercraftmod.common.registry.KeyBindInit;
+import com.saksham.pottercraftmod.common.registry.ModEntityTypes;
+import com.saksham.pottercraftmod.common.registry.ModTileEntities;
 import com.saksham.pottercraftmod.client.tileentityrenderer.NameplaterRenderer;
 
 import net.minecraft.client.renderer.RenderType;

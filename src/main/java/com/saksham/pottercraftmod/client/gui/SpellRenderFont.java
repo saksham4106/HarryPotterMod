@@ -1,7 +1,7 @@
 package com.saksham.pottercraftmod.client.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.saksham.pottercraftmod.common.init.ItemInit;
+import com.saksham.pottercraftmod.common.registry.ItemInit;
 import com.saksham.pottercraftmod.common.items.WandItem;
 
 import net.minecraft.client.Minecraft;

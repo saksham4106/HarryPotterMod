@@ -1,4 +1,4 @@
-package com.saksham.pottercraftmod.common.init;
+package com.saksham.pottercraftmod.common.registry;
 
 import com.saksham.pottercraftmod.PottercraftMod;
 import com.saksham.pottercraftmod.PottercraftMod.PottercraftItemGroup;
