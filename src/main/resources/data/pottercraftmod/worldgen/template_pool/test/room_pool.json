@@ -1,11 +1,11 @@
 {
-  "name": "pottercraftmod:test/side_pool",
+  "name": "pottercraftmod:test/room_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 2,
       "element":{
-        "location": "pottercraftmod:room",
+        "location": "pottercraftmod:test_room",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
