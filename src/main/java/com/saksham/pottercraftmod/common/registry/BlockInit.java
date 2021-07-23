@@ -34,8 +34,6 @@ public class BlockInit {
 			() -> new StairsBlock(() -> MINISTRY_OF_MAGIC_BRICK_WHITE.get().getDefaultState(), AbstractBlock.Properties.from(MINISTRY_OF_MAGIC_BRICK_WHITE.get())));
 
 
-
-
 	public static final RegistryObject<Block> FLOO_FIRE = BLOCKS.register("floo_fire",
 			() -> new FlooFireBlock(Block.Properties.create(Material.FIRE)));
 
@@ -45,7 +43,6 @@ public class BlockInit {
 	public static final RegistryObject<Block> FLOO_LANTERN = BLOCKS.register("floo_lantern",
 			() -> new LanternBlock(AbstractBlock.Properties.create(Material.IRON).sound(SoundType.LANTERN).setRequiresTool().
 					hardnessAndResistance(3.5F).setLightLevel((state) -> 10).notSolid()));
-
 
 
 	public static final RegistryObject<Block> GOLD_NAMEPLATE = BLOCKS.register("gold_nameplate",

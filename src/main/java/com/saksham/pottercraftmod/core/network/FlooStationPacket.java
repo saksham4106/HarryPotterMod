@@ -27,7 +27,6 @@ public class FlooStationPacket {
 		this.id = id;
 		this.pos = pos;
 		this.flooStationName = flooStationName;
-
 	}
 
 	public void toBytes(PacketBuffer buf) {

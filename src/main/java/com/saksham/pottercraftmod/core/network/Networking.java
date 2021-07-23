@@ -20,8 +20,6 @@ public class Networking {
 	public static void registerMessages() {
 		INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation(PottercraftMod.MOD_ID + "my_networking"),
 				() -> "1.0", s -> true, s -> true);
-
-
 		
 		INSTANCE.messageBuilder(ChangeSpellPacket.class, nextID())
 		.encoder(ChangeSpellPacket::toBytes)

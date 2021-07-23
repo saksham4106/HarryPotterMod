@@ -49,10 +49,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nullable;
 
 public class OwlEntity extends ShoulderRidingEntity implements IFlyingAnimal, IAnimatable{
-
-	//private static final Set<Item> TAME_ITEMS = Sets.newHashSet(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
 	private final AnimationFactory factory = new AnimationFactory(this);
-
 	
 	public OwlEntity(EntityType<? extends ShoulderRidingEntity> type, World worldIn) {
 		super(type, worldIn);
@@ -78,8 +75,6 @@ public class OwlEntity extends ShoulderRidingEntity implements IFlyingAnimal, IA
 		 }
 	}
 
-
-
 	public static AttributeModifierMap.MutableAttribute createAttributes() {
 		return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.2F)
 				.createMutableAttribute(Attributes.FLYING_SPEED, 0.8f).createMutableAttribute(Attributes.MAX_HEALTH, 6.0F);
@@ -87,7 +82,6 @@ public class OwlEntity extends ShoulderRidingEntity implements IFlyingAnimal, IA
 
 	@Override
 	protected void registerGoals() {
-
 	    this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
 	    this.goalSelector.addGoal(0, new SwimGoal(this));
 	    this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 8.0F));
@@ -95,7 +89,6 @@ public class OwlEntity extends ShoulderRidingEntity implements IFlyingAnimal, IA
 	    this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
 	    this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
 	    this.goalSelector.addGoal(3, new LandOnOwnersShoulderGoal(this));
-	    
 	}
 
 	@Override
@@ -127,8 +120,6 @@ public class OwlEntity extends ShoulderRidingEntity implements IFlyingAnimal, IA
    public boolean isFlying() {
 	      return !this.onGround;
 	   }
-   
-   
 
    protected boolean makeFlySound() {
       return true;
@@ -147,7 +138,6 @@ public class OwlEntity extends ShoulderRidingEntity implements IFlyingAnimal, IA
       return SoundCategory.NEUTRAL;
    }
 
-
    public boolean canBePushed() {
       return true;
    }
@@ -158,21 +148,17 @@ public class OwlEntity extends ShoulderRidingEntity implements IFlyingAnimal, IA
       }
    }
 
-
-   private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
-   {
+   private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
 	   if(this.isFlying()) {
 		   event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.owl.flap", true));
 	       return PlayState.CONTINUE;
 	   }
 	   
 	   return PlayState.CONTINUE;
-      
    }
 
    @Override
-   public void registerControllers(AnimationData data)
-   {
+   public void registerControllers(AnimationData data) {
        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
    }
 
@@ -181,7 +167,6 @@ public class OwlEntity extends ShoulderRidingEntity implements IFlyingAnimal, IA
    {
        return this.factory;
    }
-
 
 	@Nullable
 	@Override

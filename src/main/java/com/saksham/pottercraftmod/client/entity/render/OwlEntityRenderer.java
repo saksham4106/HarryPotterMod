@@ -11,14 +11,13 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 public class OwlEntityRenderer extends GeoEntityRenderer<OwlEntity>{
 
 	public static final ResourceLocation TEXTURE = new ResourceLocation(PottercraftMod.MOD_ID, "textures/entities/snowy_owl.png");
+
 	public OwlEntityRenderer(EntityRendererManager renderManagerIn) {
 		super(renderManagerIn, new OwlEntityModel());
-
 	}
 
 	@Override
 	public ResourceLocation getEntityTexture(OwlEntity entity) {
 		return TEXTURE;
 	}
-
 }

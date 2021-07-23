@@ -9,11 +9,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
+//TODO: Remove this
 public class TestItem extends Item{
 
 	public TestItem(Properties properties) {
 		super(properties);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

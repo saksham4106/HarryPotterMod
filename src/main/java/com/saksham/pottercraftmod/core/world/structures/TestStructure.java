@@ -125,7 +125,6 @@ public class TestStructure extends Structure<NoFeatureConfig> {
                     this.components.get(0).getBoundingBox().minX + " " +
                     this.components.get(0).getBoundingBox().minY + " " +
                     this.components.get(0).getBoundingBox().minZ);
-
         }
     }
 }

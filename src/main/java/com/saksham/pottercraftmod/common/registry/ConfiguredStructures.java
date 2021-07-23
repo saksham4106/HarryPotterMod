@@ -8,7 +8,6 @@ import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
-
 public class ConfiguredStructures {
 
     public static StructureFeature<?, ?> CONFIGURED_TEST = StructureInit.TEST.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
@@ -20,8 +19,5 @@ public class ConfiguredStructures {
 
         // This is done for our structure to work on Flat worlds
         FlatGenerationSettings.STRUCTURES.put(StructureInit.TEST.get(), CONFIGURED_TEST);
-
     }
-
-
 }

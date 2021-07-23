@@ -6,26 +6,20 @@ import com.saksham.pottercraftmod.common.entity.OwlEntity;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-
-
 public class OwlEntityModel extends AnimatedGeoModel<OwlEntity> {
 
     @Override
-    public ResourceLocation getModelLocation(OwlEntity object)
-    {
+    public ResourceLocation getModelLocation(OwlEntity object) {
         return new ResourceLocation(PottercraftMod.MOD_ID, "geo/owl_entity.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(OwlEntity object)
-    {
+    public ResourceLocation getTextureLocation(OwlEntity object) {
         return new ResourceLocation(PottercraftMod.MOD_ID, "textures/entities/snowy_owl.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(OwlEntity object)
-    {
+    public ResourceLocation getAnimationFileLocation(OwlEntity object) {
         return new ResourceLocation(PottercraftMod.MOD_ID, "animations/owl_entity.animation.json");
     }
-
 }

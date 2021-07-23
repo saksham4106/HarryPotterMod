@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 public class FlooStationValidator {
 	
 	/*
-	 * the pos should be the center of the station
+	 * params: the pos should be the center of the station
 	 */
 	public static boolean isFlooStationValid(BlockPos pos, World worldIn) {
 		if(checkXbyZ(pos.down().north(2).west(2), worldIn) == 25) {
@@ -18,11 +18,8 @@ public class FlooStationValidator {
 				if(checkXbyY(pos.down().north(2).west(2), worldIn) == 25) { count++;}
 				if(checkZbyY(pos.down().north(2).west(2), worldIn) == 25) { count++;}
 				if(checkZbyY(pos.down().north(2).east(2), worldIn) == 25) { count++;}
-				
-				
-				if(count == 3) {
-					return true;
-				}
+
+				return count == 3;
 			}
 		}
 		return false;
@@ -53,17 +50,14 @@ public class FlooStationValidator {
 	}
 	
 	private static int checkZbyY(BlockPos pos, World world) {
-	    int count = 0;
-		for(int i = 0; i < 5; i++) {
-			for(int j = 0; j < 5; j++) {
-				if(world.getBlockState(pos.add(0, j, i)) == BlockInit.MINISTRY_OF_MAGIC_BRICK.get().getDefaultState()) {
+		int count = 0;
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if (world.getBlockState(pos.add(0, j, i)) == BlockInit.MINISTRY_OF_MAGIC_BRICK.get().getDefaultState()) {
 					count++;
 				}
 			}
 		}
 		return count;
 	}
-
-
-	
 }

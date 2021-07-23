@@ -1,6 +1,5 @@
 package com.saksham.pottercraftmod.core.network;
 
-import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,14 +11,12 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class FlooNetworkSavedData extends WorldSavedData {
 
@@ -28,7 +25,6 @@ public class FlooNetworkSavedData extends WorldSavedData {
 
 	public FlooNetworkSavedData() {
 		super(DATA_NAME);
-
 	}
 
 	@Override
@@ -39,7 +35,6 @@ public class FlooNetworkSavedData extends WorldSavedData {
 			BlockPos pos = NBTUtil.readBlockPos(compound.getCompound("BlockPos"));
 			this.data.put(compound.getString("Name"), pos);
 		}
-
 	}
 
 	@Override
@@ -63,34 +58,30 @@ public class FlooNetworkSavedData extends WorldSavedData {
 			DimensionSavedDataManager storage = serverWorld.getSavedData();
 			return storage.getOrCreate(FlooNetworkSavedData::new, DATA_NAME);
 		}
-
 		return new FlooNetworkSavedData();
-
 	}
 
 	public void addFlooStation(String name, BlockPos pos) {
 		data.put(name, pos);
-		PottercraftMod.LOGGER.info("FlooStation Registered at " + pos.toString() + " Name: " + name);
+		PottercraftMod.LOGGER.info("FlooStation Registered at " + pos + " Name: " + name);
 		markDirty();
 	}
 
 	public void removeFlooStation(BlockPos pos) {
 		boolean removedPlace = false;
-		
 		Iterator<String> i = this.data.keySet().iterator();
 		
 		while (i.hasNext() && !removedPlace) {
 			String nextPlaceName = i.next();
 			if (this.data.get(nextPlaceName).equals(pos)) {
 				PottercraftMod.LOGGER.info(
-						"Removed FlooStation at (" + pos.toString() + "). Name: " + nextPlaceName);
+						"Removed FlooStation at (" + pos + "). Name: " + nextPlaceName);
 				this.data.remove(nextPlaceName);
 				removedPlace = true;
 			}
 		}
 		if (!removedPlace) {
 			PottercraftMod.LOGGER.warn("Failed to remove FlooStation at (" + pos.toString() + ").");
-
 		}
 		markDirty();
 	}
@@ -99,11 +90,9 @@ public class FlooNetworkSavedData extends WorldSavedData {
 		for(String names: data.keySet()) {
 			System.out.println(names + "     " + name);
 			if(names.equals(name)) {
-				
 				return this.data.get(name);
 			}
 		}
-		
 		return null; 
 	}
 

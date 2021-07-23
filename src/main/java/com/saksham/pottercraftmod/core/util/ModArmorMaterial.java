@@ -16,55 +16,54 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public enum ModArmorMaterial implements IArmorMaterial{
 	
 	INVISIBILITY_CLOAK("invisibility", 2, new int[] {1,2,1,2} , 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0f, () -> {return Ingredient.fromItems(ItemInit.INVISIBILITY_CLOAK.get());});
-	
-		
-	   private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
-	   private final String name;
-	   private final int maxDamageFactor;
-	   private final int[] damageReductionAmountArray;
-	   private final int enchantability;
-	   private final SoundEvent soundEvent;
-	   private final float toughness;
-	   private final LazyValue<Ingredient> repairMaterial;
 
-	   private ModArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float toughnessIn, Supplier<Ingredient> repairMaterialSupplier) {
-	      this.name = nameIn;
-	      this.maxDamageFactor = maxDamageFactorIn;
-	      this.damageReductionAmountArray = damageReductionAmountsIn;
-	      this.enchantability = enchantabilityIn;
-	      this.soundEvent = equipSoundIn;
-	      this.toughness = toughnessIn;
-	      this.repairMaterial = new LazyValue<>(repairMaterialSupplier);
-	   }
+	private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
+	private final String name;
+	private final int maxDamageFactor;
+	private final int[] damageReductionAmountArray;
+	private final int enchantability;
+	private final SoundEvent soundEvent;
+	private final float toughness;
+	private final LazyValue<Ingredient> repairMaterial;
 
-	   public int getDurability(EquipmentSlotType slotIn) {
-	      return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
-	   }
+	ModArmorMaterial(String nameIn, int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float toughnessIn, Supplier<Ingredient> repairMaterialSupplier) {
+	  this.name = nameIn;
+	  this.maxDamageFactor = maxDamageFactorIn;
+	  this.damageReductionAmountArray = damageReductionAmountsIn;
+	  this.enchantability = enchantabilityIn;
+	  this.soundEvent = equipSoundIn;
+	  this.toughness = toughnessIn;
+	  this.repairMaterial = new LazyValue<>(repairMaterialSupplier);
+	}
 
-	   public int getDamageReductionAmount(EquipmentSlotType slotIn) {
-	      return this.damageReductionAmountArray[slotIn.getIndex()];
-	   }
+	public int getDurability(EquipmentSlotType slotIn) {
+	  return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
+	}
 
-	   public int getEnchantability() {
-	      return this.enchantability;
-	   }
+	public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+	  return this.damageReductionAmountArray[slotIn.getIndex()];
+	}
 
-	   public SoundEvent getSoundEvent() {
-	      return this.soundEvent;
-	   }
+	public int getEnchantability() {
+	  return this.enchantability;
+	}
 
-	   public Ingredient getRepairMaterial() {
-	      return this.repairMaterial.getValue();
-	   }
+	public SoundEvent getSoundEvent() {
+	  return this.soundEvent;
+	}
 
-	   @OnlyIn(Dist.CLIENT)
-	   public String getName() {
-	      return this.name;
-	   }
+	public Ingredient getRepairMaterial() {
+	  return this.repairMaterial.getValue();
+	}
 
-	   public float getToughness() {
-	      return this.toughness;
-	   }
+	@OnlyIn(Dist.CLIENT)
+	public String getName() {
+	  return this.name;
+	}
+
+	public float getToughness() {
+	  return this.toughness;
+	}
 
 	@Override
 	public float getKnockbackResistance() {

@@ -6,7 +6,6 @@ import com.saksham.pottercraftmod.PottercraftMod;
 import com.saksham.pottercraftmod.common.tileentity.NameplateTileEntity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.StandingSignBlock;
 import net.minecraft.block.WallSignBlock;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Atlases;
@@ -35,34 +34,9 @@ public class NameplaterRenderer extends TileEntityRenderer<NameplateTileEntity> 
 	@Override
 	public void render(NameplateTileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn,
 			IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
-//		BlockState blockstate = tileEntityIn.getBlockState();
-//		matrixStackIn.push();
-//		matrixStackIn.translate(0.5D, 0.5D, 0.5D);
-//		float f4 = -blockstate.get(WallSignBlock.FACING).getHorizontalAngle();
-//		matrixStackIn.rotate(Vector3f.YP.rotationDegrees(f4));
-//		matrixStackIn.translate(0.0D, -0.3125D, -0.4375D);
-//
-//		matrixStackIn.push();
-//		matrixStackIn.scale(0.7666667F, -0.7666667F, -0.6666667F);
-//		RenderMaterial material = NameplaterRenderer.NameplateModel.MATERIAL;
-//		IVertexBuilder ivertexbuilder = material.getBuffer(bufferIn, this.model::getRenderType);
-//		this.model.board.render(matrixStackIn, ivertexbuilder, combinedLightIn, combinedOverlayIn);
-//		matrixStackIn.pop();
-//		FontRenderer fontrenderer = this.renderDispatcher.getFontRenderer();
-//
-//		matrixStackIn.translate(0.0D, 0.33333334F, 0.046666667F);
-//		matrixStackIn.scale(0.010416667F, -0.010416667F, 0.010416667F);
-//		int textColor = 1037857135;
-//
-//		int j = (int) ((double) NativeImage.getRed(textColor) * 0.4D);
-//		int k = (int) ((double) NativeImage.getGreen(textColor) * 0.4D);
-//		int l = (int) ((double) NativeImage.getBlue(textColor) * 0.4D);
-//		int i1 = NativeImage.getCombined(0, l, k, j);
-//
 
 		BlockState blockstate = tileEntityIn.getBlockState();
 		matrixStackIn.push();
-		float f = 0.6666667F;
 
 		matrixStackIn.translate(0.5D, 0.5D, 0.5D);
 		float f4 = -blockstate.get(WallSignBlock.FACING).getHorizontalAngle();
@@ -77,16 +51,13 @@ public class NameplaterRenderer extends TileEntityRenderer<NameplateTileEntity> 
 		this.model.board.render(matrixStackIn, ivertexbuilder, combinedLightIn, combinedOverlayIn);
 		matrixStackIn.pop();
 		FontRenderer fontrenderer = this.renderDispatcher.getFontRenderer();
-		float f2 = 0.010416667F;
 		matrixStackIn.translate(0.0D, 0.33333334F, 0.046666667F);
 		matrixStackIn.scale(0.010416667F, -0.010416667F, 0.010416667F);
 		int i = tileEntityIn.getTextColor().getTextColor();
-		double d0 = 0.4D;
 		int j = (int)((double)NativeImage.getRed(i) * 0.4D);
 		int k = (int)((double)NativeImage.getGreen(i) * 0.4D);
 		int l = (int)((double)NativeImage.getBlue(i) * 0.4D);
 		int i1 = NativeImage.getCombined(0, l, k, j);
-		int j1 = 20;
 
 		for(int k1 = 0; k1 < 4; ++k1) {
 			IReorderingProcessor ireorderingprocessor = tileEntityIn.reorderText(k1, (p_243502_1_) -> {
@@ -116,5 +87,4 @@ public class NameplaterRenderer extends TileEntityRenderer<NameplateTileEntity> 
 			this.board.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 		}
 	}
-
 }

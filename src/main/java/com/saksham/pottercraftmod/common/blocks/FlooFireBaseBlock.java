@@ -38,7 +38,6 @@ public class FlooFireBaseBlock extends FireBlock{
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		if(worldIn.getBlockState(pos.up()).getBlock() instanceof AirBlock) {
 			worldIn.setBlockState(pos.up(), BlockInit.FLOO_FIRE.get().getDefaultState());
-
 		}else {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
 		}
@@ -55,7 +54,6 @@ public class FlooFireBaseBlock extends FireBlock{
 				this.stateContainer.getBaseState().with(AGE, 0).with(NORTH, Boolean.FALSE)
 						.with(EAST, Boolean.FALSE).with(SOUTH, Boolean.FALSE)
 						.with(WEST, Boolean.FALSE).with(UP, Boolean.FALSE));
-
 	}
 
 	@Override
@@ -72,35 +70,10 @@ public class FlooFireBaseBlock extends FireBlock{
 				: Blocks.AIR.getDefaultState();
 	}
 
-	public BlockState getStateForPlacement(IBlockReader blockReader, BlockPos pos) {
-		BlockPos blockpos = pos.down();
-		BlockState blockstate = blockReader.getBlockState(blockpos);
-		if (!this.canCatchFire(blockReader, pos, Direction.UP)
-				&& !blockstate.isSolidSide(blockReader, blockpos, Direction.UP)) {
-			BlockState blockstate1 = this.getDefaultState();
-
-			for (Direction direction : Direction.values()) {
-				BooleanProperty booleanproperty = this.FACING_TO_PROPERTY_MAP.get(direction);
-				if (booleanproperty != null) {
-					blockstate1 = blockstate1.with(booleanproperty, this.canCatchFire(blockReader, pos.offset(direction), direction.getOpposite()));
-				}
-			}
-
-			return blockstate1;
-		} else {
-			return this.getDefaultState();
-		}
-	}
-
-
-	public int tickRate(IWorldReader worldIn) {
-		return 30;
-	}
-
 	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
 		if (worldIn.getGameRules().getBoolean(GameRules.DO_FIRE_TICK)) {
 			if (!worldIn.isAreaLoaded(pos, 2))
-				return; // Forge: prevent loading unloaded chunks when spreading fire
+				return;
 
 			BlockState other = worldIn.getBlockState(pos.down());
 			boolean flag = other.isFireSource(worldIn, pos.down(), Direction.UP);
@@ -116,17 +89,32 @@ public class FlooFireBaseBlock extends FireBlock{
 		}
 	}
 
+	/*
+		Changes access
+	 */
+	public BlockState getStateForPlacement(IBlockReader blockReader, BlockPos pos) {
+		BlockPos blockpos = pos.down();
+		BlockState blockstate = blockReader.getBlockState(blockpos);
+		if (!this.canCatchFire(blockReader, pos, Direction.UP) && !blockstate.isSolidSide(blockReader, blockpos, Direction.UP)) {
+			BlockState blockstate1 = this.getDefaultState();
+
+			for(Direction direction : Direction.values()) {
+				BooleanProperty booleanproperty = FACING_TO_PROPERTY_MAP.get(direction);
+				if (booleanproperty != null) {
+					blockstate1 = blockstate1.with(booleanproperty, this.canCatchFire(blockReader, pos.offset(direction), direction.getOpposite()));
+				}
+			}
+
+			return blockstate1;
+		} else {
+			return this.getDefaultState();
+		}
+	}
+
 	protected boolean canDie(World worldIn, BlockPos pos) {
 		return worldIn.isRainingAt(pos) || worldIn.isRainingAt(pos.west()) || worldIn.isRainingAt(pos.east())
 				|| worldIn.isRainingAt(pos.north()) || worldIn.isRainingAt(pos.south());
 	}
-
-
-	@Deprecated // Forge: Use canCatchFire with more context
-	public boolean canBurn(BlockState state) {
-		return this.getFireSpreadSpeed(state) > 0;
-	}
-
 
 	@Override
 	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
@@ -199,14 +187,7 @@ public class FlooFireBaseBlock extends FireBlock{
 		builder.add(AGE, NORTH, EAST, SOUTH, WEST, UP);
 	}
 
-	public void setFireInfo(Block blockIn, int encouragement, int flammability) {
-		if (blockIn == Blocks.AIR)
-			throw new IllegalArgumentException("Tried to set air on fire... This is bad.");
-	}
-
 	public boolean canCatchFire(IBlockReader world, BlockPos pos, Direction face) {
 		return false;
 	}
-
-
 }

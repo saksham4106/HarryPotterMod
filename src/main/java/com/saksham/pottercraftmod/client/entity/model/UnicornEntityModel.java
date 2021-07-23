@@ -7,21 +7,17 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class UnicornEntityModel extends AnimatedGeoModel<UnicornEntity>{
     @Override
-    public ResourceLocation getModelLocation(UnicornEntity object)
-    {
+    public ResourceLocation getModelLocation(UnicornEntity object){
         return new ResourceLocation(PottercraftMod.MOD_ID, "geo/unicorn_entity.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(UnicornEntity object)
-    {
+    public ResourceLocation getTextureLocation(UnicornEntity object){
         return new ResourceLocation(PottercraftMod.MOD_ID, "textures/entities/unicorn.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(UnicornEntity object)
-    {
+    public ResourceLocation getAnimationFileLocation(UnicornEntity object){
         return new ResourceLocation(PottercraftMod.MOD_ID, "animations/unicorn_entity.animation.json");
     }
-
 }

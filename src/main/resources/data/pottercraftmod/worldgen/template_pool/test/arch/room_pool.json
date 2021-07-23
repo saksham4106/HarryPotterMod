@@ -1,0 +1,24 @@
+{
+  "name": "pottercraftmod:test/room_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+      {
+      "weight": 1,
+      "element":{
+        "location": "pottercraftmod:test_room",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 10,
+      "element":{
+        "location": "pottercraftmod:crossroad",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

@@ -67,9 +67,7 @@ public class NameplateScreen extends Screen {
 		if (!this.tileSign.getType().isValidBlock(this.tileSign.getBlockState().getBlock())) {
 			this.close();
 		}
-
 	}
-	
 
 	private void close() {
 		this.tileSign.markDirty();
@@ -101,8 +99,7 @@ public class NameplateScreen extends Screen {
 		this.renderBackground(matrixStack);
 		drawCenteredString(matrixStack, this.font, this.title, this.width / 2, 40, 16777215);
 		matrixStack.push();
-		matrixStack.translate((double)(this.width / 2), 0.0D, 50.0D);
-		float f = 93.75F;
+		matrixStack.translate((this.width / 2), 0.0D, 50.0D);
 		matrixStack.scale(93.75F, -93.75F, 93.75F);
 		matrixStack.translate(0.0D, -1.3125D, 0.0D);
 		BlockState blockstate = this.tileSign.getBlockState();
@@ -110,7 +107,6 @@ public class NameplateScreen extends Screen {
 		matrixStack.translate(0.0D, -0.3125D, 0.0D);
 
 		boolean flag1 = this.updateCounter / 6 % 2 == 0;
-		float f1 = 0.6666667F;
 		matrixStack.push();
 		matrixStack.scale(0.6666667F, -0.6666667F, -0.6666667F);
 		IRenderTypeBuffer.Impl irendertypebuffer$impl = this.minecraft.getRenderTypeBuffers().getBufferSource();
@@ -119,7 +115,6 @@ public class NameplateScreen extends Screen {
 		this.signModel.board.render(matrixStack, ivertexbuilder, 15728880, OverlayTexture.NO_OVERLAY);
 
 		matrixStack.pop();
-		float f2 = 0.010416667F;
 		matrixStack.translate(0.0D, (double)0.33333334F, (double)0.046666667F);
 		matrixStack.scale(0.010416667F, -0.010416667F, 0.010416667F);
 		int i = this.tileSign.getTextColor().getTextColor();
@@ -182,7 +177,6 @@ public class NameplateScreen extends Screen {
 				}
 			}
 		}
-
 		matrixStack.pop();
 		RenderHelper.setupGui3DDiffuseLighting();
 		super.render(matrixStack, mouseX, mouseY, partialTicks);

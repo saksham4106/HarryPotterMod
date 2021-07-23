@@ -18,7 +18,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class UnicornEntity extends AnimalEntity implements IAnimatable {
-    private AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = new AnimationFactory(this);
 
     public UnicornEntity(EntityType<? extends UnicornEntity> type, World worldIn) {
         super(type, worldIn);
@@ -29,7 +29,6 @@ public class UnicornEntity extends AnimalEntity implements IAnimatable {
                 .createMutableAttribute(Attributes.MAX_HEALTH, 10.0);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
     public void registerControllers(AnimationData animationData) {
         animationData.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));

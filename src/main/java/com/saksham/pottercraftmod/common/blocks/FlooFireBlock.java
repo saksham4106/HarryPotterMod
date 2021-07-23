@@ -24,9 +24,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 public class FlooFireBlock extends Block{
-
-    boolean isAllowed = true;
-	
+    private boolean isAllowed = true;
  
     public FlooFireBlock(Block.Properties properties) {
       super(properties.tickRandomly());
@@ -53,18 +51,9 @@ public class FlooFireBlock extends Block{
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-      BlockPos blockpos = pos.down();
-       return this.isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos);
+        BlockPos blockpos = pos.down();
+        return this.isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos);
     }
-
-
-
-
-    public int tickRate(IWorldReader worldIn) {
-      return 30;
-    }
-
-
 
     @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
@@ -72,7 +61,6 @@ public class FlooFireBlock extends Block{
           worldIn.removeBlock(pos, false);
       }
     }
-
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
       builder.add(FireBlock.AGE, FireBlock.NORTH, FireBlock.EAST, FireBlock.SOUTH, FireBlock.WEST, FireBlock.UP);

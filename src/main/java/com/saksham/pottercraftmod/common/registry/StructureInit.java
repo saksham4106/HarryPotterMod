@@ -57,7 +57,5 @@ public class StructureInit {
                 structureMap.put(structure, structureSeparationSettings);
             }
         });
-
     }
-
 }

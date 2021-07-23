@@ -14,14 +14,11 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class FlooTeleportScreen extends Screen {
-	private PlayerEntity player;
-	private BlockPos pos;
+	private final BlockPos pos;
 	private TextFieldWidget destinationTextWidget;
 
 	public FlooTeleportScreen(PlayerEntity player, BlockPos pos) {
 		super(new TranslationTextComponent("pottercraftmod.screen.flooteleport"));
-		this.player = player;
-		
 		this.pos = pos;
 	}
 
@@ -32,7 +29,6 @@ public class FlooTeleportScreen extends Screen {
 				(p_214266_1_) -> {
 					Networking.sendToServer(new FlooStationPacket(2, pos, this.destinationTextWidget.getText()));
 					this.close();
-
 				}));
 		this.addButton(
 				new Button(this.width / 2 - 25, this.height / 4 + 150, 50, 20,
@@ -44,11 +40,6 @@ public class FlooTeleportScreen extends Screen {
 		 this.destinationTextWidget.setFocused2(true);
 		 this.setFocusedDefault(this.destinationTextWidget);
 		 this.children.add(this.destinationTextWidget);
-
-	}
-
-	public void removed() {
-		this.minecraft.keyboardListener.enableRepeatEvents(false);
 	}
 
 	@Override
@@ -57,7 +48,7 @@ public class FlooTeleportScreen extends Screen {
 	}
 
 	private void close() {
-		this.minecraft.displayGuiScreen((Screen) null);
+		this.minecraft.displayGuiScreen(null);
 	}
 
 	@Override
@@ -69,6 +60,4 @@ public class FlooTeleportScreen extends Screen {
 
 		super.render(matrixStack, p_render_1_, p_render_2_, p_render_3_);
 	}
-	
-	
 }

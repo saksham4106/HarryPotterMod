@@ -7,8 +7,6 @@ import com.saksham.pottercraftmod.common.entity.SpellEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 
-
-
 public class SpellEntityModel extends EntityModel<SpellEntity> {
 	private final ModelRenderer body;
 
@@ -25,23 +23,19 @@ public class SpellEntityModel extends EntityModel<SpellEntity> {
 		body.setTextureOffset(0, 0).addBox(-1.0F, -6.0F, -2.0F, 1.0F, 1.0F, 3.0F, 0.0F, false);
 	}
 
-
 	@Override
 	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
 		body.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
-	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-		modelRenderer.rotateAngleX = x;
-		modelRenderer.rotateAngleY = y;
-		modelRenderer.rotateAngleZ = z;
-	}
-
+//	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+//		modelRenderer.rotateAngleX = x;
+//		modelRenderer.rotateAngleY = y;
+//		modelRenderer.rotateAngleZ = z;
+//	}
 
 	@Override
 	public void setRotationAngles(SpellEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
 			float netHeadYaw, float headPitch) {
-		// TODO Auto-generated method stub
-		
 	}
 }

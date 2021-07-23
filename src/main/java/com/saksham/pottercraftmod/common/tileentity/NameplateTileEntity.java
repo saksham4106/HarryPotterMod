@@ -19,16 +19,6 @@ public class NameplateTileEntity extends SignTileEntity {
 		return ModTileEntities.NAMEPLATE.get();
 	}
 
-	@Override
-	public CompoundNBT write(CompoundNBT compound) {
-		return super.write(compound);
-	}
-
-	@Override
-	public void read(BlockState state, CompoundNBT nbt) {
-		super.read(state, nbt);
-	}
-
 	@Nullable
 	@Override
 	public SUpdateTileEntityPacket getUpdatePacket() {

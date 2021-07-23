@@ -6,7 +6,10 @@ import com.saksham.pottercraftmod.core.util.FlooStationValidator;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -52,6 +55,4 @@ public class FlooPowderItem extends Item {
 		BlockState blockstate = BlockInit.FLOO_FIRE_BLOCK.get().getStateForPlacement(co);
 		return existingState.isAir(worldIn, posIn) && (blockstate.isValidPosition(worldIn, posIn));
 	}
-	
-
 }

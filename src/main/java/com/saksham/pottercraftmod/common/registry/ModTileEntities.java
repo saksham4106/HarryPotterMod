@@ -17,5 +17,4 @@ public class ModTileEntities {
 	public static final RegistryObject<TileEntityType<NameplateTileEntity>> NAMEPLATE = TILE_ENTITY_TYPES
 			.register("nameplate", () -> TileEntityType.Builder
 					.create(NameplateTileEntity::new, BlockInit.GOLD_NAMEPLATE.get()).build(null));
-
 }

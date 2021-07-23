@@ -23,17 +23,13 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
-
 public class NameplateBlock extends WallSignBlock{
 	 private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.makeCuboidShape(0.0D, 4.5D, 14.0D, 16.0D, 12.5D, 16.0D), Direction.SOUTH, Block.makeCuboidShape(0.0D, 4.5D, 0.0D, 16.0D, 12.5D, 2.0D), Direction.EAST, Block.makeCuboidShape(0.0D, 4.5D, 0.0D, 2.0D, 12.5D, 16.0D), Direction.WEST, Block.makeCuboidShape(14.0D, 4.5D, 0.0D, 16.0D, 12.5D, 16.0D)));
 
 	public NameplateBlock(Properties properties) {
 		super(properties, WoodType.OAK);
 		this.setDefaultState(this.getStateContainer().getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
-		
 	}
-
 
 	@Override
 	public boolean hasTileEntity(BlockState state) {
@@ -52,7 +48,6 @@ public class NameplateBlock extends WallSignBlock{
 
 	@Override
 	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-		System.out.println("updatePostPlacement");
 		return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
 	}
 
@@ -69,14 +64,13 @@ public class NameplateBlock extends WallSignBlock{
 		} else if (FlooStationValidator.isFlooStationValid(pos.east(3), worldIn)) {
 			wsd.removeFlooStation(pos.east(3));
 		} else{
-			System.out.println("No FlooStation linked to the nameplate found to Remove");
+			System.out.println("No FlooStation linked to the nameplate found");
 		}
 		super.onBlockHarvested(worldIn, pos, state, player);
-}
+	}
 
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
 		return new NameplateTileEntity();
 	}
-
 }
