@@ -33,10 +33,8 @@ public class ResurrectionStone extends Item {
                         playerIn.rotationYaw, playerIn.rotationPitch);
                 return entityIn;
             });
+            worldIn.addEntity(entity);
 
-            if(entity != null && !worldIn.isRemote){
-                worldIn.addEntity(entity);
-            }
             entityNBT = null;
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
