@@ -78,7 +78,7 @@ public class PottercraftMod {
 
 		final IForgeRegistry<Item> registry = event.getRegistry();
 		BlockInit.BLOCKS.getEntries().stream()
-				.filter(block -> blacklistedBlocks.contains(block.get().getClass()))
+				.filter(block -> !(blacklistedBlocks.contains(block.get().getClass())))
 				.map(RegistryObject::get).forEach(block -> {
 					final Item.Properties properties = new Item.Properties().group(PottercraftItemGroup.instance);
 					final BlockItem blockItem = new BlockItem(block, properties);
